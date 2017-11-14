@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1014993793520",
+    "firebase_url": "https://bitbay-59782.firebaseio.com",
+    "project_id": "bitbay-59782",
+    "storage_bucket": "bitbay-59782.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014993793520:android:090e2c0c3d19ce99",
+        "android_client_info": {
+          "package_name": "com.bitbay.bitbay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014993793520-etrg9fkefjfv8ehld6iu43am9rah3rht.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bitbay.bitbay",
+            "certificate_hash": "74d4e393cb9e8c13218db4dcbdafe9cc85363c0f"
+          }
+        },
+        {
+          "client_id": "1014993793520-rm3g7qs337phjqcmcokjmpn47s16iv21.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB8mtmI_KrpVnQpgNep-gduVCN77qHzZE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014993793520-rm3g7qs337phjqcmcokjmpn47s16iv21.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
