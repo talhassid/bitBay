@@ -84,6 +84,9 @@ public class MainActivity extends Activity implements
             case R.id.sign_in_button:
                 signIn();
                 break;
+            case R.id.info:
+
+                break;
             // ...
         }
     }
