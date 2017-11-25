@@ -1,12 +1,16 @@
 package com.bitbay.bitbay;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,15 +29,21 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.tasks.Task;
 
+
+
 import static android.content.ContentValues.TAG;
 
-public class MainActivity extends Activity implements
+public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
     /* Request code used to invoke sign in user interactions. */
     private static final int RC_SIGN_IN = 0;
+
+    //fragment manger part
+    private SectionsStatePagerAdaptor mSectionsStatePagerAdaptor;
+    private ViewPager mViewPager ;
 
     /* Client used to interact with Google APIs. */
     private GoogleApiClient mGoogleApiClient;
@@ -63,8 +73,23 @@ public class MainActivity extends Activity implements
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
 
+        mSectionsStatePagerAdaptor = new SectionsStatePagerAdaptor(getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.container);
+//        setupViewPager(mViewPager); // todo: fix this function there is a bug
+
         findViewById(R.id.info_button).setOnClickListener(this); //get info button
         findViewById(R.id.rate_button).setOnClickListener(this); //bitcoin rate button frag
+    }
+
+    private void setupViewPager(ViewPager viewPager){
+        SectionsStatePagerAdaptor adapter = new SectionsStatePagerAdaptor(getSupportFragmentManager());
+        adapter.addFragment(new RateFragment2(),"RateFragment2");
+        adapter.addFragment(new BitCoinRate() ,"BitCoinRate");
+        viewPager.setAdapter(adapter);
+    }
+
+    public void setViewPager(int fragmentNumber){
+        mViewPager.setCurrentItem(fragmentNumber);
     }
 
     @Override
@@ -95,6 +120,7 @@ public class MainActivity extends Activity implements
                 break;
             case R.id.rate_button:
                 bitRate_frag();
+//                setViewPager(0);
                 break;
             case R.id.info_button:
                 infoButton();
@@ -115,11 +141,11 @@ public class MainActivity extends Activity implements
 
     private  void bitRate_frag() {
         BitCoinRate bit_rate_frag = new BitCoinRate();
-        FragmentManager manager = getFragmentManager();
+        FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.txtHello,bit_rate_frag,"firstFrag");
         transaction.commit();
-    }
+   }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
