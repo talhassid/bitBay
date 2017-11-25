@@ -1,6 +1,5 @@
 package com.bitbay.bitbay;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,12 +12,12 @@ import android.widget.Button;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link RateFragment2.OnFragmentInteractionListener} interface
+ * {@link MainFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link RateFragment2#newInstance} factory method to
+ * Use the {@link MainFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RateFragment2 extends Fragment {
+public class MainFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,7 +32,7 @@ public class RateFragment2 extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public RateFragment2() {
+    public MainFragment() {
         // Required empty public constructor
     }
 
@@ -46,8 +45,8 @@ public class RateFragment2 extends Fragment {
      * @return A new instance of fragment RateFragment2.
      */
     // TODO: Rename and change types and number of parameters
-    public static RateFragment2 newInstance(String param1, String param2) {
-        RateFragment2 fragment = new RateFragment2();
+    public static MainFragment newInstance(String param1, String param2) {
+        MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,7 +66,7 @@ public class RateFragment2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_rate_fragment2, container, false);
+        View view = inflater.inflate(R.layout.main_fragment, container, false);
         btnNavFrag1 = (Button) view.findViewById(R.id.frag2_to_frag1);
         btnNavMain = (Button) view.findViewById(R.id.frag2_to_main);
 
@@ -75,14 +74,14 @@ public class RateFragment2 extends Fragment {
         btnNavFrag1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).setViewPager(0);
+                ((MainActivity)getActivity()).setViewPager(1);
             }
         });
 
         btnNavMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).setViewPager(1);
+                ((MainActivity)getActivity()).setViewPager(2);
             }
         });
 

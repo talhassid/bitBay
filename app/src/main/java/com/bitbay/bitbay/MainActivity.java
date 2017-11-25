@@ -71,20 +71,22 @@ public class MainActivity extends AppCompatActivity implements
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
 
         mSectionsStatePagerAdaptor = new SectionsStatePagerAdaptor(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
-//        setupViewPager(mViewPager); // todo: fix this function there is a bug
+        setupViewPager(mViewPager);
 
+        findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.info_button).setOnClickListener(this); //get info button
         findViewById(R.id.rate_button).setOnClickListener(this); //bitcoin rate button frag
     }
 
     private void setupViewPager(ViewPager viewPager){
         SectionsStatePagerAdaptor adapter = new SectionsStatePagerAdaptor(getSupportFragmentManager());
-        adapter.addFragment(new RateFragment2(),"RateFragment2");
+        adapter.addFragment(new MainFragment() ,"MainFragment");
         adapter.addFragment(new BitCoinRate() ,"BitCoinRate");
+        adapter.addFragment(new RateFragment2(),"RateFragment2");
+
         viewPager.setAdapter(adapter);
     }
 

@@ -9,11 +9,21 @@
     tools:context="com.bitbay.bitbay.MainActivity">
 
 
+    <!--fragment container in the main activity -->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+    </android.support.v4.view.ViewPager>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Wellcom to the bitBay"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.445"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -23,35 +33,15 @@
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginBottom="444dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="390dp"
         android:layout_marginLeft="100dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintLeft_toLeftOf="parent">
 
     </com.google.android.gms.common.SignInButton>
-
-    <!--fragment container in the main activity -->
-    <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/container">
-
-    </android.support.v4.view.ViewPager>
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/main_wellcom"
-        android:text="Wellcom to the bitBay"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.394" />
 
     <Button
         android:id="@+id/info_button"
@@ -79,7 +69,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-     <!--<fragment android:name="com.bitbay.bitbay.BitCoinRate"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="344dp"
+        android:layout_height="87dp"
+        android:src="@drawable/main_wellcom"
+        android:text="Wellcom to the bitBay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.846" />
+
+    <!--<fragment android:name="com.bitbay.bitbay.BitCoinRate"
         android:id="@+id/bitcoin_rate_f"
         android:layout_weight="2"
         android:layout_width="0dp"

@@ -75,7 +75,7 @@ public class BitCoinRate extends Fragment {
         btnNavFrag2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).setViewPager(1);
+                ((MainActivity)getActivity()).setViewPager(0);
             }
         });
 
