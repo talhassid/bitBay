@@ -1,6 +1,9 @@
 package com.bitbay.bitbay;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,22 +32,6 @@ public class MainActivity extends Activity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
-    public Button infoButton;
-    public void infoInit() {
-        //about us button
-        infoButton = (Button) findViewById(R.id.info_button);
-        infoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent push = new Intent(MainActivity.this,Main2info.class);
-                startActivity(push);
-            }
-        });
-    }
-
-
-
     /* Request code used to invoke sign in user interactions. */
     private static final int RC_SIGN_IN = 0;
 
@@ -57,8 +44,6 @@ public class MainActivity extends Activity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //init the about us button
-        infoInit();
 
         // Build GoogleApiClient with access to basic profile
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -77,6 +62,9 @@ public class MainActivity extends Activity implements
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
+
+        findViewById(R.id.info_button).setOnClickListener(this); //get info button
+        findViewById(R.id.rate_button).setOnClickListener(this); //bitcoin rate button frag
     }
 
     @Override
@@ -105,8 +93,16 @@ public class MainActivity extends Activity implements
             case R.id.sign_in_button:
                 signIn();
                 break;
-            case R.id.info:
-
+            case R.id.rate_button:
+                BitCoinRate bit_rate_frag = new BitCoinRate();
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.add(R.id.txtHello,bit_rate_frag,"firstFrag");
+                transaction.commit();
+                break;
+            case R.id.info_button:
+                Intent push = new Intent(MainActivity.this,Main2info.class);
+                startActivity(push);
                 break;
             // ...
         }
