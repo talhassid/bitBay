@@ -94,15 +94,10 @@ public class MainActivity extends Activity implements
                 signIn();
                 break;
             case R.id.rate_button:
-                BitCoinRate bit_rate_frag = new BitCoinRate();
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.add(R.id.txtHello,bit_rate_frag,"firstFrag");
-                transaction.commit();
+                bitRate_frag();
                 break;
             case R.id.info_button:
-                Intent push = new Intent(MainActivity.this,Main2info.class);
-                startActivity(push);
+                infoButton();
                 break;
             // ...
         }
@@ -111,6 +106,19 @@ public class MainActivity extends Activity implements
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void infoButton() {
+        Intent push = new Intent(MainActivity.this,Main2info.class);
+        startActivity(push);
+    }
+
+    private  void bitRate_frag() {
+        BitCoinRate bit_rate_frag = new BitCoinRate();
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.txtHello,bit_rate_frag,"firstFrag");
+        transaction.commit();
     }
 
     @Override
