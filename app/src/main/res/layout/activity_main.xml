@@ -1,91 +1,113 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/txtHello"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BBFF"
-    tools:context="com.bitbay.bitbay.MainActivity">
+    android:background="@color/blue_grey_700"
+    android:orientation="vertical"
+    android:weightSum="4"
+    tools:context=".SignInActivity">
 
-
-    <!--fragment container in the main activity -->
-    <android.support.v4.view.ViewPager
-        android:id="@+id/container"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    </android.support.v4.view.ViewPager>
+        <ImageView
+            android:id="@+id/google_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="@dimen/g_top_margin"
+            android:contentDescription="@string/desc_google_icon"
+            android:src="@drawable/ic_launcher_big" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wellcom to the bitBay"
-        app:layout_constraintHorizontal_bias="0.445"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.199" />
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/title_text"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="36sp" />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginBottom="390dp"
-        android:layout_marginLeft="100dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintLeft_toLeftOf="parent">
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signed_out"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
 
-    </com.google.android.gms.common.SignInButton>
+        <TextView
+            android:id="@+id/detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="true"
+            android:gravity="center"
+            android:maxLines="5"
+            android:padding="10dp"
+            android:scrollbars="vertical"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
 
-    <Button
-        android:id="@+id/info_button"
-        android:layout_width="104dp"
-        android:layout_height="36dp"
-        android:text="about us"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        <Button
+            android:id="@+id/button_optional_action"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:text="Optional Action"
+            tools:visibility="visible" />
 
-    <Button
-        android:id="@+id/rate_button"
-        android:layout_width="157dp"
-        android:layout_height="37dp"
-        android:text="bitCoin rate and info"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="344dp"
-        android:layout_height="87dp"
-        android:src="@drawable/main_wellcom"
-        android:text="Wellcom to the bitBay"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.846" />
-
-    <!--<fragment android:name="com.bitbay.bitbay.BitCoinRate"
-        android:id="@+id/bitcoin_rate_f"
-        android:layout_weight="2"
-        android:layout_width="0dp"
-        android:layout_height="match_parent" />-->
+    </LinearLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/blue_grey_900">
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            tools:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/sign_out_and_disconnect"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <Button
+                android:id="@+id/sign_out_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sign_out"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
+
+            <Button
+                android:id="@+id/disconnect_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/disconnect"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

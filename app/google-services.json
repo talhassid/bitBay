@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1014993793520-bhcp2j5qi2vosi9rkq87m6ftp611bfqh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bitbay.bitbay",
+            "certificate_hash": "62db6e5a6a39c53254f96f7e14bdcb01f6a59ddb"
+          }
+        },
+        {
+          "client_id": "1014993793520-0j4qautt0rlrvi4n87j6qjvngt6ahre1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bitbay.bitbay",
+            "certificate_hash": "1746bc7fa3ab7dafb4045928c2c59a56831b275f"
+          }
+        },
+        {
           "client_id": "1014993793520-etrg9fkefjfv8ehld6iu43am9rah3rht.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
