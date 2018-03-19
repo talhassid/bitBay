@@ -58,4 +58,10 @@
     <string name="shop">shop</string>
     <string name="profile">my profile</string>
     <string name="help">Help and FAQs</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
