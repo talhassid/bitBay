@@ -53,4 +53,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="server_client_id">1014993793520-rm3g7qs337phjqcmcokjmpn47s16iv21.apps.googleusercontent.com</string>
+
+    <!-- Menu -->
+    <string name="shop">shop</string>
+    <string name="profile">my profile</string>
+    <string name="help">Help and FAQs</string>
 </resources>

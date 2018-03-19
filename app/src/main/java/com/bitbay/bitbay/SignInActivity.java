@@ -102,11 +102,8 @@ public class SignInActivity extends AppCompatActivity implements
             String email = account.getEmail();
             String userName = account.getDisplayName();
             String userId = account.getId();
-            // TODO(developer): send ID Token to server and validate
             sendIdTokenToServer(idToken,email,userName,userId);
             updateUI(account);
-//            Intent loggedIn = new Intent(this,LoggedInActivity.class);
-//            startActivity(loggedIn);
         } catch (ApiException e) {
             Log.w(TAG, "handleSignInResult:error", e);
             updateUI(null);
@@ -180,6 +177,9 @@ public class SignInActivity extends AppCompatActivity implements
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
             mRefreshButton.setVisibility(View.VISIBLE);
+            Intent loggedIn = new Intent(this,LoggedInActivity.class);
+            startActivity(loggedIn);
+
         } else {
             ((TextView) findViewById(R.id.status)).setText(R.string.signed_out);
             mIdTokenTextView.setText(getString(R.string.id_token_fmt, "null"));

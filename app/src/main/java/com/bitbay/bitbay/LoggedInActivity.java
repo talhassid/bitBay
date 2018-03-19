@@ -26,8 +26,13 @@ public class LoggedInActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-//            case R.id.options_menu:
-//                return true;
+            case R.id.help:
+
+
+            case R.id.shop:
+                return true;
+            case R.id.profile:
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
