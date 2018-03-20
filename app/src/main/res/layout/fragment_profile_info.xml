@@ -5,9 +5,22 @@
     tools:context="com.bitbay.bitbay.ProfileInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:text="profile info fragment" />-->
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="profile info fragment" />
+        android:id="@+id/detail"
+        android:layout_width="333dp"
+        android:layout_height="200dp"
+        android:fadeScrollbars="true"
+        android:gravity="center"
+        android:maxLines="5"
+        android:padding="10dp"
+        android:scrollbars="vertical"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
 
 </FrameLayout>

@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 public class ProfileInfoFragment extends Fragment {
 
     GoogleSignInAccount myAccount ;
+    private TextView mIdTokenTextView;
 
     public ProfileInfoFragment() {
         // Required empty public constructor
@@ -27,14 +28,20 @@ public class ProfileInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View view = inflater.inflate(R.layout.fragment_profile_info, container, false);
         ProfileActivity activity = (ProfileActivity) getActivity();
         myAccount = activity.getMyAccount();
         String name = myAccount.getDisplayName();
         Log.e("temp-check data",name);
         // Inflate the layout for this fragment
 
+        //views
+        mIdTokenTextView = view.findViewById(R.id.detail);
 
-        return inflater.inflate(R.layout.fragment_profile_info, container, false);
+        mIdTokenTextView.setText(getString(R.string.id_token_fmt, name));
+//        mIdTokenTextView.setText(name);
+
+        return view ;
     }
 
 }
