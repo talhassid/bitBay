@@ -32,13 +32,16 @@ public class ProfileInfoFragment extends Fragment {
         ProfileActivity activity = (ProfileActivity) getActivity();
         myAccount = activity.getMyAccount();
         String name = myAccount.getDisplayName();
-        Log.e("temp-check data",name);
+        String email = myAccount.getEmail();
+        String id = myAccount.getId();
         // Inflate the layout for this fragment
 
         //views
         mIdTokenTextView = view.findViewById(R.id.detail);
 
-        mIdTokenTextView.setText(getString(R.string.id_token_fmt, name));
+        mIdTokenTextView.setText(getString(R.string.id_token_fmt,"\nname: "+ name
+                +"\nemail: ")+email +"\nuser number: "+id);
+
 //        mIdTokenTextView.setText(name);
 
         return view ;
