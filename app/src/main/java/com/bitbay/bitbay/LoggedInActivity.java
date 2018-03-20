@@ -36,7 +36,6 @@ public class LoggedInActivity extends AppCompatActivity {
                 Log.e("temp-to_implement", "shop button pressed");
                 return true;
             case R.id.profile:
-                Log.e("temp-to_implement", "profile button pressed");
                 profile();
                 return true;
             default:

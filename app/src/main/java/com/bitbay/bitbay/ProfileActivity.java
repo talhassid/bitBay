@@ -1,8 +1,11 @@
 package com.bitbay.bitbay;
 
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -81,21 +84,42 @@ public class ProfileActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+
+            setTitle("profile info");
+            ProfileInfoFragment info = new ProfileInfoFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment, info).commit();
+
         } else if (id == R.id.nav_gallery) {
+
+            setTitle("my orders");
+            myOrdersFragment orders = new myOrdersFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment, orders).commit();
 
         } else if (id == R.id.nav_slideshow) {
 
+            setTitle("my offers");
+            myOffersFragment offers = new myOffersFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment, offers).commit();
+
         } else if (id == R.id.nav_manage) {
 
+            setTitle("my wishList");
+            wishListFragment wishList = new wishListFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment, wishList).commit();
+
         } else if (id == R.id.nav_share) {
-
+            Log.e("temp-to_implement", "#5button pressed");
         } else if (id == R.id.nav_send) {
-
+            Log.e("temp-to_implement", "#6 button pressed");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
