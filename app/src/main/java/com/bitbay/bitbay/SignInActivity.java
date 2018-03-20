@@ -34,6 +34,7 @@ public class SignInActivity extends AppCompatActivity implements
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mIdTokenTextView;
     private Button mRefreshButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,6 +179,7 @@ public class SignInActivity extends AppCompatActivity implements
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
             mRefreshButton.setVisibility(View.VISIBLE);
             Intent loggedIn = new Intent(this,LoggedInActivity.class);
+            loggedIn.putExtra("account",account);
             startActivity(loggedIn);
 
         } else {
@@ -223,3 +225,5 @@ public class SignInActivity extends AppCompatActivity implements
         }
     }
 }
+
+

@@ -8,14 +8,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.util.Log;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 
 public class LoggedInActivity extends AppCompatActivity {
 
+    private GoogleSignInAccount myAccount = null ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        myAccount = (GoogleSignInAccount)bundle.get("account");
         setContentView(R.layout.activity_logged_in);
+
     }
 
     @Override
@@ -44,8 +51,9 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
 
-    private void profile() {
+    private  void profile() {
         Intent profileIntent = new Intent(LoggedInActivity.this, ProfileActivity.class);
+        profileIntent.putExtra("account",myAccount);
         startActivity(profileIntent);
     }
 
