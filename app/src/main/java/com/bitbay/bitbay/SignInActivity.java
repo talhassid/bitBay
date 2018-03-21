@@ -224,6 +224,10 @@ public class SignInActivity extends AppCompatActivity implements
                 break;
         }
     }
+
+    public void logOut(){
+        this.signOut();
+    }
 }
 
 

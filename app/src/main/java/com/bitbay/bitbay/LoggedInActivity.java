@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 

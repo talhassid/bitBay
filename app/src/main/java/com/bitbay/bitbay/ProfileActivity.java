@@ -121,7 +121,11 @@ public class ProfileActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
             Log.e("temp-to_implement", "#5button pressed");
         } else if (id == R.id.nav_send) {
-            Log.e("temp-to_implement", "#6 button pressed");
+
+            setTitle("Logging out");
+            LogOutFragment info = new LogOutFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment, info).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -131,6 +135,9 @@ public class ProfileActivity extends AppCompatActivity
 
     public GoogleSignInAccount getMyAccount(){
        return myAccount;
+
+    }
+    private void logOut(){
 
     }
 

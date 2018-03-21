@@ -1,5 +1,7 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.bitbay.bitbay.ProfileInfoFragment">
@@ -10,12 +12,28 @@
         android:id="@+id/detail"
         android:layout_width="363dp"
         android:layout_height="102dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="56dp"
         android:fadeScrollbars="true"
         android:gravity="left"
         android:maxLines="5"
         android:padding="10dp"
         android:scrollbars="vertical"
         android:textColor="@android:color/black"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="208dp"
+        android:layout_height="161dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="144dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="center"
+        android:visibility="visible" />
+
+
+</android.support.constraint.ConstraintLayout>

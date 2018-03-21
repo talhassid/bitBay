@@ -1,15 +1,31 @@
 package com.bitbay.bitbay;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
+import org.apache.http.client.methods.HttpUriRequest;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 
 /**
@@ -19,6 +35,7 @@ public class ProfileInfoFragment extends Fragment {
 
     GoogleSignInAccount myAccount ;
     private TextView mIdTokenTextView;
+    private ImageView iv;
 
     public ProfileInfoFragment() {
         // Required empty public constructor
@@ -34,17 +51,17 @@ public class ProfileInfoFragment extends Fragment {
         String name = myAccount.getDisplayName();
         String email = myAccount.getEmail();
         String id = myAccount.getId();
-        // Inflate the layout for this fragment
+        Uri personPhoto = myAccount.getPhotoUrl();
+
 
         //views
         mIdTokenTextView = view.findViewById(R.id.detail);
-
         mIdTokenTextView.setText(getString(R.string.id_token_fmt,"\nname: "+ name
                 +"\nemail: ")+email +"\nuser number: "+id);
 
-//        mIdTokenTextView.setText(name);
+        iv = view.findViewById(R.id.imageView1);
+        iv.setImageURI(personPhoto);
 
         return view ;
     }
-
 }
