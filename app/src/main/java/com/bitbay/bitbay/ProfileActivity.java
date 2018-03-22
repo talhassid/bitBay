@@ -15,17 +15,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+
 
 public class ProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     protected GoogleSignInAccount myAccount = null ;
+    private StorageReference mStorage;
+
+    private static final int STORAGE_INTENT = 2 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mStorage = FirebaseStorage.getInstance().getReference();
+
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         Intent intent = getIntent();
@@ -119,13 +132,18 @@ public class ProfileActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.fragment, wishList).commit();
 
         } else if (id == R.id.nav_share) {
-            Log.e("temp-to_implement", "#5button pressed");
+
+            setTitle("Upload product");
+            UploadFragment up = new UploadFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+
+            fragmentManager.beginTransaction().replace(R.id.fragment, up).commit();
         } else if (id == R.id.nav_send) {
 
             setTitle("Logging out");
-            LogOutFragment info = new LogOutFragment();
+            LogOutFragment logOut = new LogOutFragment();
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.fragment, info).commit();
+            fragmentManager.beginTransaction().replace(R.id.fragment, logOut).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -137,8 +155,14 @@ public class ProfileActivity extends AppCompatActivity
        return myAccount;
 
     }
-    private void logOut(){
+
+    public StorageReference getStorageRefferance(){
+        return mStorage;
 
     }
+    public int getStorageIntent(){
+        return STORAGE_INTENT;
+    }
+
 
 }
