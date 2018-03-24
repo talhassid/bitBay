@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
@@ -25,7 +26,7 @@ public class LoggedInActivity extends AppCompatActivity {
 
     private GoogleSignInAccount myAccount = null ;
     private BottomNavigationView bottomNavigation;
-
+    private TextView nameTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,9 @@ public class LoggedInActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         myAccount = (GoogleSignInAccount)bundle.get("account");
         setContentView(R.layout.activity_logged_in);
+        String name = myAccount.getDisplayName();
+        nameTextView = findViewById(R.id.acc_name);
+        nameTextView.setText(getString(R.string.id_token_fmt, name));
         bottomNavigation = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

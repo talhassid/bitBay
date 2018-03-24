@@ -172,12 +172,12 @@ public class SignInActivity extends AppCompatActivity implements
         if (account != null) {
             ((TextView) findViewById(R.id.status)).setText(R.string.signed_in);
 
-            String name = account.getDisplayName();
-            mIdTokenTextView.setText(getString(R.string.id_token_fmt, name));
-
-            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
-            mRefreshButton.setVisibility(View.VISIBLE);
+//            String name = account.getDisplayName();
+//            mIdTokenTextView.setText(getString(R.string.id_token_fmt, name));
+//
+//            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+//            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+//            mRefreshButton.setVisibility(View.VISIBLE);
             Intent loggedIn = new Intent(this,LoggedInActivity.class);
             loggedIn.putExtra("account",account);
             startActivity(loggedIn);
