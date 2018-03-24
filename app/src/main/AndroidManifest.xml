@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoggedInActivity" />
+        <activity android:name=".HelpActivity" />
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"

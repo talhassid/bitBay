@@ -65,4 +65,11 @@
 
     <string name="action_settings">Settings</string>
     <string name="info">info</string>
+
+    <string name="orders">ORDERS</string>
+    <string name="payments">PAYMENTS</string>
+    <string name="delivery">DELIVERY</string>
+    <string name="returns">RETURNS</string>
+
+
 </resources>

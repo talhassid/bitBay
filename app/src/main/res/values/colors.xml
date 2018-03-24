@@ -8,4 +8,9 @@
     <color name="blue_grey_700">#455A64</color>
     <color name="blue_grey_800">#37474F</color>
     <color name="blue_grey_900">#263238</color>
+    <color name="green">#004d40</color>
+    <color name="light_green">#39796b</color>
+    <color name="black">#00251a</color>
+    <color name="white">#FFF</color>
+
 </resources>
