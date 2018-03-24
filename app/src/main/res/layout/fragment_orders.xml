@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_green"
+    tools:context="com.bitbay.bitbay.OrdersFragment"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/orders11"
+        android:layout_above="@id/orders1"
+        android:textStyle="bold"
+        android:text="Can I cancel my order after I've placed it?"
+        android:textColor="@color/white"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/orders1"
+        android:layout_above="@id/orders2"
+        android:text="There are varying time limits in which you can cancel your order
+dependent on which delivery option you've chosen: Next Day Delivery,
+Evening Next Day Delivery and ASOS Instant –  15...\n"
+        android:textColor="@color/white"
+        android:textSize="15sp"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/orders2"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:id="@+id/orders22"
+        android:textStyle="bold"
+        android:text="What do I do if I receive a faulty item in my order?"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/orders3"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:id="@+id/orders2"
+        android:text="We want to sort out any issues with faulty items straightaway.
+As soon as you discover a fault, please  contact our Customer Care team with:
+The order number The faulty item's name and number A...\n"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/orders3"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:id="@+id/orders33"
+        android:text="I have an incorrect item in my order, what do I do?"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/orders4"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:id="@+id/orders3"
+        android:text="We want to sort out any issues with incorrect items straight away.
+Please  contact our Customer Care team with your order number and the incorrect item's name
+and product number. We'll get back...\n"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/orders4"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:id="@+id/orders44"
+        android:text="Can I amend my order after I've placed it?"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:id="@+id/orders4"
+        android:text="We're really quick at packing your order up which means we can't make
+any changes once you've placed it. This includes changing the delivery option, delivery address or
+payment method. However, you..."/>
+
+</LinearLayout>
