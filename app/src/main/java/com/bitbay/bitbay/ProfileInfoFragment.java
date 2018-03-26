@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.PicassoProvider;
 
 import org.apache.http.client.methods.HttpUriRequest;
 
@@ -45,6 +47,7 @@ public class ProfileInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         View view = inflater.inflate(R.layout.fragment_profile_info, container, false);
         ProfileActivity activity = (ProfileActivity) getActivity();
         myAccount = activity.getMyAccount();
@@ -60,7 +63,8 @@ public class ProfileInfoFragment extends Fragment {
                 +"\nemail: ")+email +"\nuser number: "+id);
 
         iv = view.findViewById(R.id.imageView1);
-        iv.setImageURI(personPhoto);
+        Picasso.get().load(personPhoto).into(iv);
+//        iv.setImageURI(personPhoto);
 
         return view ;
     }
