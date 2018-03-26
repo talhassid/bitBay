@@ -72,6 +72,11 @@ public class ProfileActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //setting the profile info as the main activity view - (*need to find better way)
+        ProfileInfoFragment info = new ProfileInfoFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragment, info).commit();
+
     }
 
     @Override
