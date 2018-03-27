@@ -7,11 +7,11 @@ import java.util.ArrayList;
  */
 
 public class StoreItem {
-    private double price;
-    private String descriptaion ;
-    private String image ; //fixme: verify format
-    private ArrayList<String> categoryList ;
-    private String sellerKey;
+    private double price = 0 ;
+    private String descriptaion = null;
+    private String image = null ; //fixme: verify format
+    private ArrayList<String> categoryList = null;
+    private String sellerKey = null;
 
     StoreItem(){
 

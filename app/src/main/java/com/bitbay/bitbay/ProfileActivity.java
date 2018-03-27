@@ -37,7 +37,9 @@ public class ProfileActivity extends AppCompatActivity
 
     protected GoogleSignInAccount myAccount = null ;
     protected GoogleApiClient mGoogleApiClient;
-    private StorageReference mStorage;
+    protected StorageReference mStorage;
+    protected DatabaseReference mDatabaseUsersRef;
+    protected DatabaseReference mDatabaseItemsRef;
 
     private static final int STORAGE_INTENT = 2 ;
 
@@ -46,6 +48,8 @@ public class ProfileActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         mStorage = FirebaseStorage.getInstance().getReference();
+        mDatabaseUsersRef = FirebaseDatabase.getInstance().getReference().child("users");
+        mDatabaseItemsRef = FirebaseDatabase.getInstance().getReference().child("items");
 
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

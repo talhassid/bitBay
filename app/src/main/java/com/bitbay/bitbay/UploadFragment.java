@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -55,6 +57,8 @@ public class UploadFragment extends Fragment {
         return view;
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -62,17 +66,25 @@ public class UploadFragment extends Fragment {
 
         if (requestCode == activity.getStorageIntent() && resultCode == activity.RESULT_OK) {
             Uri uri = data.getData();
-            StorageReference filePath =
+            final StorageReference filePath =
                     activity.getStorageRefferance().child("items").child(uri.getLastPathSegment());
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(activity, "Upload Done", Toast.LENGTH_LONG).show();
+
+//                    StoreItem item = new StoreItem();
+                    String item = "test_item";
+
+                    ApiFireBaseStore.addItem2DataBase(activity.mDatabaseUsersRef,activity.mDatabaseItemsRef,
+                            filePath,activity.myAccount,item);
+
                 }
             });
 
         }
     }
+
 
 
     private boolean hasPermissions(String perm){
