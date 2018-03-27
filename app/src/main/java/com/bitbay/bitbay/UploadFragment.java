@@ -1,6 +1,7 @@
 package com.bitbay.bitbay;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -62,7 +63,8 @@ public class UploadFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        requestPerms(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        ApiPermissions.requestPerms(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                activity.getStorageIntent(),activity);
 
         if (requestCode == activity.getStorageIntent() && resultCode == activity.RESULT_OK) {
             Uri uri = data.getData();
@@ -85,25 +87,5 @@ public class UploadFragment extends Fragment {
         }
     }
 
-    private boolean hasPermissions(String perm){
-        int res = PackageManager.PERMISSION_GRANTED ;
-        String[] permissions = new String[]{perm};
-
-        for (String perms : permissions){
-            res = activity.checkCallingOrSelfPermission(perms);
-            if (!(res == PackageManager.PERMISSION_GRANTED)){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void requestPerms(String perm){
-        String[] permissions = new String[]{perm};
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            requestPermissions(permissions,activity.getStorageIntent());
-        }
-
-    }
 
 }

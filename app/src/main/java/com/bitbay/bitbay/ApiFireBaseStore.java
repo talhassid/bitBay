@@ -19,6 +19,8 @@ public class ApiFireBaseStore {
         mItemRef.child(itemKey).child("item").setValue(item.getItemKey());
         mItemRef.child(itemKey).child("userId").setValue(item.getSellerKey());
         mItemRef.child(itemKey).child("storagePath").setValue(item.getImagePath());
+        mItemRef.child(itemKey).child("price").setValue(item.getPrice());
+        mItemRef.child(itemKey).child("description").setValue(item.getDescription());
         mUserRef.child(item.getSellerKey()).child("items").child(itemKey).setValue(itemKey);
 
 
