@@ -10,14 +10,16 @@ import com.google.firebase.storage.StorageReference;
 
 public class ApiFireBaseStore {
 
+
     static void addItem2DataBase(DatabaseReference mUserRef, DatabaseReference mItemRef,
-                                 StorageReference filePath, GoogleSignInAccount myAccount, String item){
+                                 StoreItem item){
 
         String itemKey = mItemRef.push().getKey();
-        mItemRef.child(itemKey).child("item").setValue(item);
-        mItemRef.child(itemKey).child("userId").setValue(myAccount.getId());
-        mItemRef.child(itemKey).child("storagePath").setValue(filePath.toString());
-        mUserRef.child(myAccount.getId()).child("items").child(itemKey).setValue(itemKey);
+        item.setItemKey(itemKey);
+        mItemRef.child(itemKey).child("item").setValue(item.getItemKey());
+        mItemRef.child(itemKey).child("userId").setValue(item.getSellerKey());
+        mItemRef.child(itemKey).child("storagePath").setValue(item.getImagePath());
+        mUserRef.child(item.getSellerKey()).child("items").child(itemKey).setValue(itemKey);
 
 
     }

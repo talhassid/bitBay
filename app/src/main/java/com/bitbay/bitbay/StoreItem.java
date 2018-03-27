@@ -7,14 +7,46 @@ import java.util.ArrayList;
  */
 
 public class StoreItem {
-    private double price = 0 ;
-    private String descriptaion = null;
-    private String image = null ; //fixme: verify format
-    private ArrayList<String> categoryList = null;
-    private String sellerKey = null;
+    private double price ;
+    private String description ;
+    private String imagePath  ;
+    private ArrayList<String> categoryList = new ArrayList<>() ;
+    private String sellerKey ;
+    private String itemKey ;
 
-    StoreItem(){
+    StoreItem(double price,String description,String image,
+              String sellerKey){
+        this.price=price ;
+        this.description=description;
+        this.imagePath = image;
+        this.sellerKey = sellerKey;
+
 
     }
+    public double getPrice(){
+        return this.price;
+    }
 
+    public String getDescription(){
+        return this.description;
+    }
+
+    public String getImagePath(){
+        return this.imagePath;
+    }
+
+    public String getSellerKey(){
+        return this.sellerKey;
+    }
+
+    public String getItemKey(){
+        return this.itemKey;
+    }
+
+    public void setItemKey(String key){
+        this.itemKey = key ;
+    }
+    void addCategory(){
+
+    }
 }

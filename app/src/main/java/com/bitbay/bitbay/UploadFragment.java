@@ -73,19 +73,17 @@ public class UploadFragment extends Fragment {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(activity, "Upload Done", Toast.LENGTH_LONG).show();
 
-//                    StoreItem item = new StoreItem();
-                    String item = "test_item";
+                    StoreItem item = new StoreItem(3,"dog",filePath.toString(),
+                            activity.myAccount.getId());
 
-                    ApiFireBaseStore.addItem2DataBase(activity.mDatabaseUsersRef,activity.mDatabaseItemsRef,
-                            filePath,activity.myAccount,item);
+                    ApiFireBaseStore.addItem2DataBase(activity.mDatabaseUsersRef,
+                            activity.mDatabaseItemsRef,item);
 
                 }
             });
 
         }
     }
-
-
 
     private boolean hasPermissions(String perm){
         int res = PackageManager.PERMISSION_GRANTED ;
