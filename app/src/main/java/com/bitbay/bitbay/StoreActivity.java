@@ -10,7 +10,6 @@ public class StoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
-       // NonScrollListView non_scroll_list = (NonScrollListView) findViewById(R.id.lv_nonscroll_list);
     }
 
 
