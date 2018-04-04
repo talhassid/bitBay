@@ -47,7 +47,8 @@ public class LoggedInActivity extends AppCompatActivity {
                         helpPage();
                         break;
                     case R.id.shop:
-                        Log.e("temp-to_implement", "shop button pressed");
+                      //  Log.e("temp-to_implement", "shop button pressed");
+                        store();
                         break;
                     case R.id.profile:
                         profile();
@@ -63,6 +64,12 @@ public class LoggedInActivity extends AppCompatActivity {
         Intent profileIntent = new Intent(LoggedInActivity.this, ProfileActivity.class);
         profileIntent.putExtra("account",myAccount);
         startActivity(profileIntent);
+    }
+
+    private void store(){
+        Intent storeIntent = new Intent(LoggedInActivity.this, StoreActivity.class);
+        storeIntent.putExtra("account",myAccount);
+        startActivity(storeIntent);
     }
 
     private void helpPage(){
