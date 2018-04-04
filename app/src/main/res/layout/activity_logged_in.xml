@@ -31,7 +31,6 @@
         app:menu="@menu/options_menu" >
     </android.support.design.widget.BottomNavigationView>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -41,13 +40,26 @@
         android:id="@+id/linearLayout2">
     </LinearLayout>
 
+    <Button
+        android:id="@+id/button_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/acc_name"
+        android:layout_marginStart="22dp"
+        android:background="@drawable/round_button"
+        android:text="@string/sell"
+        android:textStyle="bold"
+        android:textColor="#fff" />
+
     <TextView
         android:id="@+id/acc_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/bottom_navigation"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
+        android:layout_marginEnd="98dp"
+        android:layout_marginTop="22dp"
         android:fadeScrollbars="true"
         android:gravity="center"
         android:maxLines="5"
@@ -71,8 +83,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/acc_name"
-        android:layout_marginTop="48dp"
+        android:layout_below="@+id/button_id"
+        android:layout_marginTop="23dp"
         android:contentDescription="advertisment home page"
         android:src="@drawable/advertisement2" />
 

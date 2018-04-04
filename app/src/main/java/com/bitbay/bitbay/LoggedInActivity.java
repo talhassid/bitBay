@@ -46,7 +46,7 @@ public class LoggedInActivity extends AppCompatActivity {
                     case R.id.help:
                         helpPage();
                         break;
-                    case R.id.shop:
+                    case R.id.store:
                       //  Log.e("temp-to_implement", "shop button pressed");
                         store();
                         break;
