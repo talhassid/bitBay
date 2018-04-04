@@ -11,8 +11,10 @@ import com.google.firebase.storage.StorageReference;
 public class ApiFireBaseStore {
 
 
-    static void addItem2DataBase(DatabaseReference mUserRef, DatabaseReference mItemRef,
-                                 StoreItem item){
+    static void addItem2DataBase(DatabaseReference mDataBase,StoreItem item){
+
+        DatabaseReference mUserRef = mDataBase.child("users");
+        DatabaseReference mItemRef =mDataBase.child("items");
 
         String itemKey = mItemRef.push().getKey();
         item.setItemKey(itemKey);

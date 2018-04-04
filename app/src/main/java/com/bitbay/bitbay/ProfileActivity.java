@@ -40,6 +40,7 @@ public class ProfileActivity extends AppCompatActivity
     protected StorageReference mStorage;
     protected DatabaseReference mDatabaseUsersRef;
     protected DatabaseReference mDatabaseItemsRef;
+    protected DatabaseReference mDatabaseRef;
 
     private static final int STORAGE_INTENT = 2 ;
 
@@ -50,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity
         mStorage = FirebaseStorage.getInstance().getReference();
         mDatabaseUsersRef = FirebaseDatabase.getInstance().getReference().child("users");
         mDatabaseItemsRef = FirebaseDatabase.getInstance().getReference().child("items");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

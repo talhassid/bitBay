@@ -8,10 +8,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,6 +30,8 @@ public class UploadFragment extends Fragment {
 
     private Button uploadButton;
     private ProfileActivity activity;
+    private EditText mPrice;
+    private EditText mDescription;
 
     public UploadFragment() {
         // Required empty public constructor
@@ -42,13 +46,16 @@ public class UploadFragment extends Fragment {
         activity = (ProfileActivity) getActivity();
         uploadButton = view.findViewById(R.id.upload_button);
 
+        mPrice = view.findViewById(R.id.priceText);
+        mDescription = view.findViewById(R.id.descriptionText);
+
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(Intent.ACTION_PICK);
 
-                intent.setType("image/*"); //fixme: change to items
+                intent.setType("image/*");
 
                 startActivityForResult(intent,activity.getStorageIntent());
 
@@ -75,17 +82,21 @@ public class UploadFragment extends Fragment {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(activity, "Upload Done", Toast.LENGTH_LONG).show();
 
-                    StoreItem item = new StoreItem(3,"dog",filePath.toString(),
+                    String price = mPrice.getText().toString();
+                    String description = mDescription.getText().toString();
+
+                    StoreItem item = new StoreItem(price,description,filePath.toString(),
                             activity.myAccount.getId());
 
-                    ApiFireBaseStore.addItem2DataBase(activity.mDatabaseUsersRef,
-                            activity.mDatabaseItemsRef,item);
+                    ApiFireBaseStore.addItem2DataBase(activity.mDatabaseRef ,item);
 
                 }
             });
 
         }
     }
+
+
 
 
 }

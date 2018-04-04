@@ -7,14 +7,14 @@ import java.util.ArrayList;
  */
 
 public class StoreItem {
-    private double price ;
+    private String price ;
     private String description ;
     private String imagePath  ;
     private ArrayList<String> categoryList = new ArrayList<>() ;
     private String sellerKey ;
     private String itemKey ;
 
-    StoreItem(double price,String description,String image,
+    StoreItem(String price,String description,String image,
               String sellerKey){
         this.price=price ;
         this.description=description;
@@ -23,7 +23,7 @@ public class StoreItem {
 
 
     }
-    public double getPrice(){
+    public String getPrice(){
         return this.price;
     }
 
