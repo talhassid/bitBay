@@ -7,8 +7,8 @@
         android:title="@string/profile"
         android:icon="@drawable/ic_acc" />
     <item
-        android:id="@+id/shop"
-        android:title="@string/shop"
+        android:id="@+id/store"
+        android:title="@string/store"
         android:icon="@drawable/ic_store"/>
     <item
         android:id="@+id/help"

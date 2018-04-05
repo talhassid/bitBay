@@ -2,7 +2,9 @@ package com.bitbay.bitbay;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+
+//import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -40,8 +42,8 @@ public class HelpActivity extends AppCompatActivity {
                         fragment = new ReturnsFragment();
                         break;
                 }
-                final FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.help_container, fragment).commit();
+                android.app.FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.help_fragment, fragment).commit();
                 return true;
             }
         });
