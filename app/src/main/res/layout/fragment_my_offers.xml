@@ -5,9 +5,13 @@
     tools:context="com.bitbay.bitbay.myOffersFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+    <ListView
+        android:id="@+id/myItems"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="my offers fragment" />
+        android:layout_height="match_parent" >
+
+    </ListView>
 
 </FrameLayout>
