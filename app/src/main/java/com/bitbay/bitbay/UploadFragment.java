@@ -38,7 +38,6 @@ public class UploadFragment extends Fragment {
     private ProfileActivity activity;
     private EditText mPrice;
     private EditText mDescription;
-//    private EditText mCategories;
 
     String[] listCategories;
     boolean[] checkedBox;
@@ -102,9 +101,10 @@ public class UploadFragment extends Fragment {
                         for (int i =0 ; i < checkedBox.length ; i ++){
                             checkedBox[i] = false;
                             mItemCategories.clear();
-//                            mCategories.setText("");
-                            //todo: remove from my categories
 
+                            //todo: remove from my categories
+//                            myCategories.remove(i);
+git
                         }
                     }
                 });
