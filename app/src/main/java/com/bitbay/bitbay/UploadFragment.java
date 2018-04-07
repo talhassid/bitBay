@@ -104,7 +104,7 @@ public class UploadFragment extends Fragment {
 
                             //todo: remove from my categories
 //                            myCategories.remove(i);
-git
+
                         }
                     }
                 });
