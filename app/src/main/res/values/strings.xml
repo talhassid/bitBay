@@ -2,7 +2,19 @@
     <string name="app_name">bitBay</string>
     <string name="hello_world">Hello World!</string>
     <string name="title_text">Welcome to bitBay</string>
-
+    
+    <string-array name="category_list">
+        <item>Other</item>
+        <item>Fashion</item>
+        <item>Electronics</item>
+        <item>Toys</item>
+        <item>Sporting Goods</item>
+        <item>Home and Garden</item>
+        <item>Music</item>
+        <item>Business and Industrial</item>
+        <item>Motors</item>
+    </string-array>
+    
     <!-- Sign-in status messages -->
     <string name="signed_in_fmt">Signed in as: %s</string>
     <string name="signed_in">Signed in</string>

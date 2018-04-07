@@ -10,17 +10,17 @@ public class StoreItem {
     private String price ;
     private String description ;
     private String imagePath  ;
-    private ArrayList<String> categoryList = new ArrayList<>() ;
+    private String categoryList ;
     private String sellerKey ;
     private String itemKey ;
 
     StoreItem(String price,String description,String image,
-              String sellerKey){
+              String sellerKey,String categoryList){
         this.price=price ;
         this.description=description;
         this.imagePath = image;
         this.sellerKey = sellerKey;
-
+        this.categoryList = categoryList;
 
     }
     public String getPrice(){
@@ -42,6 +42,8 @@ public class StoreItem {
     public String getItemKey(){
         return this.itemKey;
     }
+
+    public String getCategoryList() {return this.categoryList;}
 
     public void setItemKey(String key){
         this.itemKey = key ;

@@ -62,12 +62,12 @@ public class myOffersFragment extends Fragment {
                     String price = String.valueOf(dataSnapshot.child("price").getValue());
                     String imagePath = String.valueOf(dataSnapshot.child("storagePath").getValue());
                     String description = String.valueOf(dataSnapshot.child("description").getValue());
-
+                    String categories = (String) dataSnapshot.child("categories").getValue();
                     Log.i("**price**", price);
                     Log.i("**imagePath**", imagePath);
                     Log.i("**description**", description);
 
-                    StoreItem item = new StoreItem(price,description,imagePath,userKey);
+                    StoreItem item = new StoreItem(price,description,imagePath,userKey,categories);
                     (mItemsArrayList).add(item);
 
                 }
