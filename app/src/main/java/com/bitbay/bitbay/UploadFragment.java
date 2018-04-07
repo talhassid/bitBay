@@ -85,7 +85,7 @@ public class UploadFragment extends Fragment {
                     String price = mPrice.getText().toString();
                     String description = mDescription.getText().toString();
 
-                    StoreItem item = new StoreItem(price,description,filePath.toString(),
+                    StoreItem item = new StoreItem(price,description,taskSnapshot.getDownloadUrl().toString(),
                             activity.myAccount.getId());
 
                     ApiFireBaseStore.addItem2DataBase(activity.mDatabaseRef ,item);
