@@ -64,18 +64,15 @@ public class ApiFireBaseStore {
     }
 
     void removeItemFromDatebase (DatabaseReference mDataBase,StoreItem item){
+
 //        DatabaseReference mUserRef = mDataBase.child("users");
-//        DatabaseReference mItemRef =mDataBase.child("items");
-//
-//        String itemKey = mItemRef.push().getKey();
+//        DatabaseReference mItemRef = mDataBase.child("items");
+//        String itemKey = item.getItemKey();
 //        item.setItemKey(itemKey);
-//        mItemRef.child(itemKey).child("item").setValue(item.getItemKey());
-//        mItemRef.child(itemKey).child("userId").setValue(item.getSellerKey());
-//        mItemRef.child(itemKey).child("categories").setValue(item.getCategoryList());
-//        mItemRef.child(itemKey).child("storagePath").setValue(item.getImagePath());
-//        mItemRef.child(itemKey).child("price").setValue(item.getPrice());
-//        mItemRef.child(itemKey).child("description").setValue(item.getDescription());
-//        mUserRef.child(item.getSellerKey()).child("items").child(itemKey).setValue(itemKey);
+//
+//        mItemRef.child(itemKey).child("cartWatchers");
+
+
 
     }
 
@@ -84,7 +81,6 @@ public class ApiFireBaseStore {
 
         DatabaseReference mUserRef = mDataBase.child("users");
         DatabaseReference mItemRef = mDataBase.child("items");
-
         String itemKey = item.getItemKey();
         item.setItemKey(itemKey);
 
@@ -97,7 +93,6 @@ public class ApiFireBaseStore {
                                    GoogleSignInAccount cartAccount){
         DatabaseReference mUserRef = mDataBase.child("users");
         DatabaseReference mItemRef = mDataBase.child("items");
-
         String itemKey = item.getItemKey();
         item.setItemKey(itemKey);
 
