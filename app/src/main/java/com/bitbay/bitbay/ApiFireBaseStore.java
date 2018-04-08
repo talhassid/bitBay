@@ -79,7 +79,8 @@ public class ApiFireBaseStore {
 
     }
 
-    static void addItem2Cart(DatabaseReference mDataBase,StoreItem item,GoogleSignInAccount cartAccount){
+    static void addItem2Cart(DatabaseReference mDataBase,StoreItem item,
+                             GoogleSignInAccount cartAccount){
 
         DatabaseReference mUserRef = mDataBase.child("users");
         DatabaseReference mItemRef = mDataBase.child("items");
@@ -87,13 +88,21 @@ public class ApiFireBaseStore {
         String itemKey = item.getItemKey();
         item.setItemKey(itemKey);
 
-        mItemRef.child(itemKey).child("cart watchers").child(cartAccount.getId())
+        mItemRef.child(itemKey).child("cartWatchers").child(cartAccount.getId())
                 .setValue(cartAccount.getId());
         mUserRef.child(cartAccount.getId()).child("cart").child(itemKey).setValue(itemKey);
 
     }
-    static void removeItemFromCart(DatabaseReference mDataBase,StoreItem item){
+    static void removeItemFromCart(DatabaseReference mDataBase,StoreItem item,
+                                   GoogleSignInAccount cartAccount){
+        DatabaseReference mUserRef = mDataBase.child("users");
+        DatabaseReference mItemRef = mDataBase.child("items");
 
+        String itemKey = item.getItemKey();
+        item.setItemKey(itemKey);
+
+        mItemRef.child(itemKey).child("cartWatchers").child(cartAccount.getId()).removeValue();
+        mUserRef.child(cartAccount.getId()).child("cart").child(itemKey).removeValue();
     }
 
 }
