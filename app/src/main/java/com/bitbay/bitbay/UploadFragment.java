@@ -84,7 +84,8 @@ public class UploadFragment extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int which) {
                         String category = "";
                         for(int i=0 ; i <mItemCategories.size();i++){
-                            category = category + listCategories[mItemCategories.get(i)]+", ";
+                            category = category + listCategories[mItemCategories.get(i)] + ",";
+
                         }
                         myCategories.add(category);
                     }
@@ -98,12 +99,11 @@ public class UploadFragment extends Fragment {
                 mBuilder.setNeutralButton("Clear all", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
+                        myCategories.clear();
                         for (int i =0 ; i < checkedBox.length ; i ++){
                             checkedBox[i] = false;
                             mItemCategories.clear();
-
-                            //todo: remove from my categories
-//                            myCategories.remove(i);
+                            myCategories.clear();
 
                         }
                     }
@@ -155,6 +155,7 @@ public class UploadFragment extends Fragment {
                     StoreItem item = new StoreItem(price,description,taskSnapshot.getDownloadUrl().toString(),
                             activity.myAccount.getId(), myCategories.toString());
 
+                    myCategories.clear(); // clear the categories from old upload to new
                     ApiFireBaseStore.addItem2DataBase(activity.mDatabaseRef ,item);
 
                 }

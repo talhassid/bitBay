@@ -2,9 +2,6 @@ package com.bitbay.bitbay;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,22 +11,20 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by roeis on 4/6/2018.
  */
 
-public class CustomListAdapter extends ArrayAdapter<StoreItem> {
+public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
 
     ArrayList<StoreItem> items;
     Context context;
     int resource ;
 
 
-    public CustomListAdapter(Context context, int resource, ArrayList<StoreItem> items) {
+    public CategoriesListAdapter(Context context, int resource, ArrayList<StoreItem> items) {
         super(context, resource,items);
         this.items = items;
         this.context = context;

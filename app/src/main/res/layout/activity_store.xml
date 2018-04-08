@@ -18,6 +18,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/category_1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -28,6 +29,7 @@
                 android:drawableRight="@drawable/newin"/>
 
             <Button
+                android:id="@+id/category_2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -39,6 +41,7 @@
                 android:drawableRight="@drawable/fashion"/>
 
             <Button
+                android:id="@+id/category_3"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -50,6 +53,7 @@
                 android:drawableRight="@drawable/elc"/>
 
             <Button
+                android:id="@+id/category_4"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -61,6 +65,7 @@
                 android:drawableRight="@drawable/toys"/>
 
             <Button
+                android:id="@+id/category_5"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -72,6 +77,7 @@
                 android:drawableRight="@drawable/sport"/>
 
             <Button
+                android:id="@+id/category_6"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -83,6 +89,7 @@
                 android:drawableRight="@drawable/home"/>
 
             <Button
+                android:id="@+id/category_7"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -94,6 +101,7 @@
                 android:drawableRight="@drawable/music"/>
 
             <Button
+                android:id="@+id/category_8"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -104,6 +112,7 @@
                 android:textSize="15sp"/>
 
             <Button
+                android:id="@+id/category_9"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
