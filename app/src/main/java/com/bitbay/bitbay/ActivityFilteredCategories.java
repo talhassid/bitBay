@@ -34,10 +34,10 @@ public class ActivityFilteredCategories extends Activity {
         myAccount = (GoogleSignInAccount) bundle.get("account");
         myFilter = (String) bundle.get("filter");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        mCategoryListView = this.findViewById(R.id.category_items); //todo: verify it
+        mCategoryListView = this.findViewById(R.id.category_items);
 
         final CategoriesListAdapter categoriesListAdapter = new CategoriesListAdapter(
-                this, R.layout.custom_items_list_view, mItemsArrayList);
+                this, R.layout.category_items_list_view, mItemsArrayList,myAccount,mDatabaseRef);
 
         mCategoryListView.setAdapter(categoriesListAdapter);
 
@@ -46,21 +46,21 @@ public class ActivityFilteredCategories extends Activity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 String userKey = String.valueOf(dataSnapshot.child("userId").getValue());
-                if (!userKey.equals(myAccount.getId())) {
+                if (userKey.equals(myAccount.getId())) { //TODO: add not
 
                     String price = String.valueOf(dataSnapshot.child("price").getValue());
                     String imagePath = String.valueOf(dataSnapshot.child("storagePath").getValue());
                     String description = String.valueOf(dataSnapshot.child("description").getValue());
                     String categories = (String) dataSnapshot.child("categories").getValue();
+                    String itemKey = (String) dataSnapshot.child("item").getValue();
 
-                    Log.i("**price**", price);
-                    Log.i("**imagePath**", imagePath);
-                    Log.i("**description**", description);
                     Log.i("**categories**", categories);
+                    Log.i("*myfilter is:*", myFilter);
 
                     if (categories.contains(myFilter)) {
-                        Log.i("**inside mt filter**", myFilter);
+                        Log.i("*categories contain it*", myFilter);
                         StoreItem item = new StoreItem(price, description, imagePath, userKey, categories);
+                        item.setItemKey(itemKey);
                         (mItemsArrayList).add(item);
                     }
 

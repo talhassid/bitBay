@@ -39,7 +39,7 @@ public class ApiFireBaseStore {
 
     }
 
-    public static void readDataOnce(DatabaseReference mDataBaseRef, GoogleSignInAccount mAccount,
+    static void readDataOnce(DatabaseReference mDataBaseRef, GoogleSignInAccount mAccount,
                                     final long[] val,final OnGetDataListener listener){
 
         String accountId = mAccount.getId();
@@ -57,24 +57,42 @@ public class ApiFireBaseStore {
             }
 
 
-//        public void showData(DataSnapshot dataSnapshot,final long[] in_val){
-//
-//            in_val[0] = dataSnapshot.getChildrenCount();
-//            listener.onSuccess(dataSnapshot);
-//            Log.e("debug-**inside* items", String.valueOf(in_val[0]));
-//
-//            ArrayList<String> dataArry = new ArrayList<>();
-//            dataArry
-//
-//            }
-
         });
 
         return ;
 
     }
 
-    void removeItem(StoreItem item){
+    void removeItemFromDatebase (DatabaseReference mDataBase,StoreItem item){
+//        DatabaseReference mUserRef = mDataBase.child("users");
+//        DatabaseReference mItemRef =mDataBase.child("items");
+//
+//        String itemKey = mItemRef.push().getKey();
+//        item.setItemKey(itemKey);
+//        mItemRef.child(itemKey).child("item").setValue(item.getItemKey());
+//        mItemRef.child(itemKey).child("userId").setValue(item.getSellerKey());
+//        mItemRef.child(itemKey).child("categories").setValue(item.getCategoryList());
+//        mItemRef.child(itemKey).child("storagePath").setValue(item.getImagePath());
+//        mItemRef.child(itemKey).child("price").setValue(item.getPrice());
+//        mItemRef.child(itemKey).child("description").setValue(item.getDescription());
+//        mUserRef.child(item.getSellerKey()).child("items").child(itemKey).setValue(itemKey);
+
+    }
+
+    static void addItem2Cart(DatabaseReference mDataBase,StoreItem item,GoogleSignInAccount cartAccount){
+
+        DatabaseReference mUserRef = mDataBase.child("users");
+        DatabaseReference mItemRef = mDataBase.child("items");
+
+        String itemKey = item.getItemKey();
+        item.setItemKey(itemKey);
+
+        mItemRef.child(itemKey).child("cart watchers").child(cartAccount.getId())
+                .setValue(cartAccount.getId());
+        mUserRef.child(cartAccount.getId()).child("cart").child(itemKey).setValue(itemKey);
+
+    }
+    static void removeItemFromCart(DatabaseReference mDataBase,StoreItem item){
 
     }
 

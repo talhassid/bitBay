@@ -62,7 +62,7 @@ public class StoreActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.category_1:
 //                setTitle("New items");
-                filter = "New items";
+                filter = "";
                 break;
 
             case R.id.category_2:
