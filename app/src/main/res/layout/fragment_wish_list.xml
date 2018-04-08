@@ -4,10 +4,9 @@
     android:layout_height="match_parent"
     tools:context="com.bitbay.bitbay.wishListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/items_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="wish list fragment" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>

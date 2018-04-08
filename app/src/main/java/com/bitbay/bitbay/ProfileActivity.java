@@ -147,7 +147,7 @@ public class ProfileActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-            setTitle("my wishList");
+            setTitle("my cart");
             wishListFragment wishList = new wishListFragment();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment, wishList).commit();
