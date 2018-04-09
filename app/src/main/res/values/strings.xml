@@ -84,6 +84,7 @@
     <string name="delivery">DELIVERY</string>
     <string name="returns">RETURNS</string>
     <string name="title_activity_filtered_categories">ActivityFilteredCategories</string>
+    <string name="cart_payment">Button</string>
 
 
 </resources>

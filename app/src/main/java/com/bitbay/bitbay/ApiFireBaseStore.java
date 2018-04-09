@@ -63,41 +63,56 @@ public class ApiFireBaseStore {
 
     }
 
-    void removeItemFromDatebase (DatabaseReference mDataBase,StoreItem item){
+    static void removeItemFromDatebase (DatabaseReference mDataBase,StoreItem item){
 
-//        DatabaseReference mUserRef = mDataBase.child("users");
-//        DatabaseReference mItemRef = mDataBase.child("items");
-//        String itemKey = item.getItemKey();
-//        item.setItemKey(itemKey);
-//
-//        mItemRef.child(itemKey).child("cartWatchers");
+        DatabaseReference mUserRef = mDataBase.child("users");
+        DatabaseReference mItemRef = mDataBase.child("items");
+        String itemKey = item.getItemKey();
+
+        String itemOwner = item.getSellerKey();
+
+
+
+        for (String key : item.getCartWatchersList()){
+            removeItemFromCart(mDataBase,item,key);
+        }
+
+        mUserRef.child(itemOwner).child("items").child(itemKey).removeValue();
+        mItemRef.child(itemKey).removeValue();
+
+
+
+        mItemRef.child(itemKey).child("cartWatchers");
 
 
 
     }
 
     static void addItem2Cart(DatabaseReference mDataBase,StoreItem item,
-                             GoogleSignInAccount cartAccount){
+                             String cartAccountId){
 
         DatabaseReference mUserRef = mDataBase.child("users");
         DatabaseReference mItemRef = mDataBase.child("items");
         String itemKey = item.getItemKey();
         item.setItemKey(itemKey);
 
-        mItemRef.child(itemKey).child("cartWatchers").child(cartAccount.getId())
-                .setValue(cartAccount.getId());
-        mUserRef.child(cartAccount.getId()).child("cart").child(itemKey).setValue(itemKey);
+        mItemRef.child(itemKey).child("cartWatchers").child(cartAccountId)
+                .setValue(cartAccountId);
+        mUserRef.child(cartAccountId).child("cart").child(itemKey).setValue(itemKey);
 
+        item.add2CartWatchers(cartAccountId);
     }
     static void removeItemFromCart(DatabaseReference mDataBase,StoreItem item,
-                                   GoogleSignInAccount cartAccount){
+                                   String cartAccountId){
         DatabaseReference mUserRef = mDataBase.child("users");
         DatabaseReference mItemRef = mDataBase.child("items");
         String itemKey = item.getItemKey();
         item.setItemKey(itemKey);
 
-        mItemRef.child(itemKey).child("cartWatchers").child(cartAccount.getId()).removeValue();
-        mUserRef.child(cartAccount.getId()).child("cart").child(itemKey).removeValue();
+        mItemRef.child(itemKey).child("cartWatchers").child(cartAccountId).removeValue();
+        mUserRef.child(cartAccountId).child("cart").child(itemKey).removeValue();
+
+        item.removeFromCartWatchers(cartAccountId);
     }
 
 }

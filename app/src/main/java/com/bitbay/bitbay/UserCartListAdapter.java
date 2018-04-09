@@ -68,7 +68,7 @@ public class UserCartListAdapter extends ArrayAdapter<StoreItem> {
             @Override
             public void onClick(View view) {
                 Log.i("info: ","REMOVE FROM CART BUTTON PRESSED");
-                ApiFireBaseStore.removeItemFromCart(mDatabaseRef,item,myAccount);
+                ApiFireBaseStore.removeItemFromCart(mDatabaseRef,item,myAccount.getId());
 
             }
         });

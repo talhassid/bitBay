@@ -47,7 +47,6 @@ public class ProfileActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mStorage = FirebaseStorage.getInstance().getReference();
         mDatabaseUsersRef = FirebaseDatabase.getInstance().getReference().child("users");
         mDatabaseItemsRef = FirebaseDatabase.getInstance().getReference().child("items");
