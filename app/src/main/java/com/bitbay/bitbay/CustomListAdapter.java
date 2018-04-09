@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 
 import java.net.URI;
@@ -27,13 +29,16 @@ public class CustomListAdapter extends ArrayAdapter<StoreItem> {
     ArrayList<StoreItem> items;
     Context context;
     int resource ;
+    DatabaseReference mDatabaseRef;
 
 
-    public CustomListAdapter(Context context, int resource, ArrayList<StoreItem> items) {
+    public CustomListAdapter(Context context, int resource, ArrayList<StoreItem> items,
+                             DatabaseReference mDatabaseRef){
         super(context, resource,items);
         this.items = items;
         this.context = context;
         this.resource = resource ;
+        this.mDatabaseRef = mDatabaseRef;
     }
 
     @Override
@@ -48,17 +53,26 @@ public class CustomListAdapter extends ArrayAdapter<StoreItem> {
             holder.IMAGE = convertView.findViewById(R.id.imageViewItem);
             holder.PRICE = convertView.findViewById(R.id.textViewPrice);
             holder.DESCRIPTION = convertView.findViewById(R.id.textViewDesription);
+            holder.Button = convertView.findViewById(R.id.remove_item_button);
 
             convertView.setTag(holder);
         }else {
             holder = (ImgHolder)convertView.getTag();
         }
 
-        StoreItem item = getItem(position);
+        final StoreItem item = getItem(position);
 
         Picasso.get().load(item.getImagePath()).into(holder.IMAGE);
         holder.PRICE.setText(item.getPrice());
         holder.DESCRIPTION.setText(item.getDescription());
+        holder.Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("info: ","REMOVE FROM CART BUTTON PRESSED");
+                ApiFireBaseStore.removeItemFromDatebase(mDatabaseRef,item);
+
+            }
+        });
 
         return convertView;
 
@@ -69,6 +83,7 @@ public class CustomListAdapter extends ArrayAdapter<StoreItem> {
         ImageView IMAGE;
         TextView PRICE;
         TextView DESCRIPTION;
+        Button Button;
     }
 
 }

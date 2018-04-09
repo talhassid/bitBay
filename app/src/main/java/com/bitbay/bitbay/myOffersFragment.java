@@ -49,7 +49,7 @@ public class myOffersFragment extends Fragment {
         mItemListView = rootView.findViewById(R.id.items_list);
 
         final CustomListAdapter customListAdapter = new CustomListAdapter(
-                activity,R.layout.custom_items_list_view,mItemsArrayList);
+                activity,R.layout.custom_items_list_view,mItemsArrayList,activity.mDatabaseRef);
 
         mItemListView.setAdapter(customListAdapter);
 
@@ -63,11 +63,14 @@ public class myOffersFragment extends Fragment {
                     String imagePath = String.valueOf(dataSnapshot.child("storagePath").getValue());
                     String description = String.valueOf(dataSnapshot.child("description").getValue());
                     String categories = (String) dataSnapshot.child("categories").getValue();
+                    String itemKey = (String) dataSnapshot.child("item").getValue();
                     Log.i("**price**", price);
                     Log.i("**imagePath**", imagePath);
                     Log.i("**description**", description);
 
                     StoreItem item = new StoreItem(price,description,imagePath,userKey,categories);
+                    item.setItemKey(itemKey);
+
                     (mItemsArrayList).add(item);
 
                 }
