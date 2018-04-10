@@ -70,6 +70,7 @@ public class CustomListAdapter extends ArrayAdapter<StoreItem> {
             public void onClick(View view) {
                 Log.i("info: ","REMOVE FROM CART BUTTON PRESSED");
                 ApiFireBaseStore.removeItemFromDatebase(mDatabaseRef,item);
+                items.remove(item);
 
             }
         });

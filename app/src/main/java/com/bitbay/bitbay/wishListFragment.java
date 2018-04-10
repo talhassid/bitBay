@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
 
+import static com.google.android.gms.internal.zzagr.runOnUiThread;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,6 +58,17 @@ public class wishListFragment extends Fragment {
 
         mItemListView.setAdapter(userCartListAdapter);
 
+//        final Runnable run = new Runnable() {
+//            public void run() {
+//                mItemsArrayList.clear();
+//                mItemsArrayList.addAll();
+//                userCartListAdapter.notifyDataSetChanged();
+//                mItemListView.invalidateViews();
+//                mItemListView.refreshDrawableState();
+//            }
+//
+//        };
+
         activity.mDatabaseRef.child("items").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -77,7 +90,7 @@ public class wishListFragment extends Fragment {
                     item.setItemKey(itemKey);
                     (mItemsArrayList).add(item);
 
-                }
+            }
                 userCartListAdapter.notifyDataSetChanged();
             }
 
@@ -85,12 +98,7 @@ public class wishListFragment extends Fragment {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Log.e("DEBUG","onChildChanged");
 
-//                wishListFragment cartFragment = wishListFragment.this;
-////                if(getActivity() == null) {
-////                    activity = (ProfileActivity) cartFragment.getActivity();
-////                }
-//                FragmentManager fragmentManager = activity.getFragmentManager();
-//                fragmentManager.beginTransaction().replace(R.id.fragment, cartFragment).commit();
+                userCartListAdapter.notifyDataSetChanged();
 
             }
 

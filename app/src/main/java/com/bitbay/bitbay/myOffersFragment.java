@@ -43,7 +43,7 @@ public class myOffersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_my_offers, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_my_offers, container, false);
 
         activity = (ProfileActivity) getActivity();
         mItemListView = rootView.findViewById(R.id.items_list);
@@ -75,26 +75,27 @@ public class myOffersFragment extends Fragment {
 
                 }
                 customListAdapter.notifyDataSetChanged();
+
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                customListAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                customListAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                customListAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                customListAdapter.notifyDataSetChanged();
             }
         });
 
