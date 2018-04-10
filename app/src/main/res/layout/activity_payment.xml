@@ -8,15 +8,19 @@
     tools:context=".PaypalActivity">
 
     <Button
-        android:layout_width="match_parent"
+        android:id="@+id/pay_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pay 10 $"
-        android:textSize="30sp"
-        android:onClick="pay"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="200dp"
+        android:textSize="20sp"
+        android:onClick="pay"
+        tools:text="pay price"/>
     <TextView
         android:background="#00CED1"
         android:id="@+id/response"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textSize="30sp"/>
+        android:layout_gravity="center"
+        android:textSize="20sp"/>
 </LinearLayout>

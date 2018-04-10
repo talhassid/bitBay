@@ -30,7 +30,7 @@ public class wishListFragment extends Fragment {
     private ProfileActivity activity;
     private ListView mItemListView;
     private ArrayList<StoreItem> mItemsArrayList = new ArrayList<>();
-
+    int cartFullPrice;
     public wishListFragment() {
         // Required empty public constructor
     }
@@ -44,15 +44,25 @@ public class wishListFragment extends Fragment {
 
         activity = (ProfileActivity) getActivity();
         mItemListView = rootView.findViewById(R.id.items_list);
-        final String cartFullPrice = "10"; // We need to some the prices of the items in the cart
         Button paymentButton = (Button)rootView.findViewById(R.id.cart_payment_button);
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cartFullPrice = 0;
+                for(int i = 0; i < mItemsArrayList.size(); i++){
+                    String s_price = mItemsArrayList.get(i).getPrice();
+                    int itemPrice = 0;
+                    try{
+                        itemPrice = Integer.parseInt(s_price);
+                    }
+                    catch (Exception e){
+                        continue;
+                    }
+                    cartFullPrice = cartFullPrice + itemPrice;
+                }
                 Intent paymentIntent = new Intent(getActivity(), PaypalActivity.class);
                 paymentIntent.putExtra("price",cartFullPrice);
                 startActivity(paymentIntent);
-                //todo: move to payment activity;
             }
         });
 
@@ -126,7 +136,6 @@ public class wishListFragment extends Fragment {
         Log.e("DEBUG","return rootView");
         return rootView;
     }
-
 
 
 }

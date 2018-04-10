@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.paypal.android.sdk.payments.PayPalConfiguration;
@@ -24,14 +25,21 @@ public class PaypalActivity extends AppCompatActivity {
     String m_paypalClientId = "ATom87_nHy9ovxAQo1Yv4q8nwfHHVwwT8w13LwX8eDf22v0BGrYYsoRdw5n9S7BTtvEVFsHHHewh6Jcu";
     Intent m_service;
     int m_paypalRequestCode = 999; //
+    int price;
+    Button payButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_payment);
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        String price = (String)bundle.get("price");
-        setContentView(R.layout.activity_payment);
+        price = (int)bundle.get("price");
+
+        String s_price = String.valueOf(price);
+        payButton = findViewById(R.id.pay_button);
+        payButton.setText("pay " + s_price + " $");
         m_response = (TextView) findViewById(R.id.response);
         m_configuration = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
                 .clientId(m_paypalClientId);
@@ -41,7 +49,7 @@ public class PaypalActivity extends AppCompatActivity {
     }
 
     void pay(View view) {
-        PayPalPayment payment = new PayPalPayment(new BigDecimal(10), "USD",
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(price), "USD",
                 "Test payment with paypal", PayPalPayment.PAYMENT_INTENT_SALE);
         Intent intent = new Intent(this, PaymentActivity.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,m_configuration);
@@ -57,8 +65,10 @@ public class PaypalActivity extends AppCompatActivity {
                 PaymentConfirmation confirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
                 if (confirmation != null){
                     String state = confirmation.getProofOfPayment().getState();
-                    if (state.equals("approved"))
+                    if (state.equals("approved")){
                         m_response.setText("payment approved");
+                        finish();
+                    }
                     else
                         m_response.setText("error in the payment");
                 }
