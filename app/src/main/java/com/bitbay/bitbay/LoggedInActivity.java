@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +28,8 @@ public class LoggedInActivity extends AppCompatActivity {
     private GoogleSignInAccount myAccount = null ;
     private BottomNavigationView bottomNavigation;
     private TextView nameTextView;
+    private Button sellButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,20 @@ public class LoggedInActivity extends AppCompatActivity {
         myAccount = (GoogleSignInAccount)bundle.get("account");
         setContentView(R.layout.activity_logged_in);
         String name = myAccount.getDisplayName();
+
+        sellButton = findViewById(R.id.sell_button_id);
+        sellButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent profileIntent = new Intent(LoggedInActivity.this, ProfileActivity.class);
+                profileIntent.putExtra("target","sell");
+                startActivity(profileIntent);
+
+            }
+        });
+
+
         nameTextView = findViewById(R.id.acc_name);
         nameTextView.setText(getString(R.string.id_token_fmt, name));
         bottomNavigation = (BottomNavigationView)findViewById(R.id.bottom_navigation);
@@ -62,6 +79,7 @@ public class LoggedInActivity extends AppCompatActivity {
 
     private  void profile() {
         Intent profileIntent = new Intent(LoggedInActivity.this, ProfileActivity.class);
+        profileIntent.putExtra("target","info");
         profileIntent.putExtra("account",myAccount);
         startActivity(profileIntent);
     }

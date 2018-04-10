@@ -79,9 +79,19 @@ public class ProfileActivity extends AppCompatActivity
 
         //setting the profile info as the main activity view - (*need to find better way)
         //*SA-r.s
-        ProfileInfoFragment info = new ProfileInfoFragment();
+        String target = (String) bundle.get("target");
+
+
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment, info).commit();
+
+        if ("sell".equals(target)){
+            UploadFragment sell = new UploadFragment();
+            fragmentManager.beginTransaction().replace(R.id.fragment, sell).commit();
+        }
+        else if("info".equals(target)){
+            ProfileInfoFragment info = new ProfileInfoFragment();
+            fragmentManager.beginTransaction().replace(R.id.fragment, info).commit();
+        }
 
     }
 
