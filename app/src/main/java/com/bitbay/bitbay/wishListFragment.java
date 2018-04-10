@@ -2,6 +2,7 @@ package com.bitbay.bitbay;
 
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -46,6 +47,8 @@ public class wishListFragment extends Fragment {
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent paymentIntent = new Intent(getActivity(), PaypalActivity.class);
+                startActivity(paymentIntent);
                 //todo: move to payment activity;
             }
         });
