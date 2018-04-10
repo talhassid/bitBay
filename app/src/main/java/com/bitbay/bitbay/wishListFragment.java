@@ -137,5 +137,11 @@ public class wishListFragment extends Fragment {
         return rootView;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Remove all the items from cart - firebase and view
+        //Remove items from sellers list
+        Log.i("After payment ","Return to wishlist fragment");
+    }
 }
