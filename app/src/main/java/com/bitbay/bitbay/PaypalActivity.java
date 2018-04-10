@@ -28,6 +28,9 @@ public class PaypalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String price = (String)bundle.get("price");
         setContentView(R.layout.activity_payment);
         m_response = (TextView) findViewById(R.id.response);
         m_configuration = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)

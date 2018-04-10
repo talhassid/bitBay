@@ -42,12 +42,13 @@ public class wishListFragment extends Fragment {
 
         activity = (ProfileActivity) getActivity();
         mItemListView = rootView.findViewById(R.id.items_list);
-
+        final String cartFullPrice = "10"; // We need to some the prices of the items in the cart
         Button paymentButton = (Button)rootView.findViewById(R.id.cart_payment_button);
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent paymentIntent = new Intent(getActivity(), PaypalActivity.class);
+                paymentIntent.putExtra("price",cartFullPrice);
                 startActivity(paymentIntent);
                 //todo: move to payment activity;
             }
