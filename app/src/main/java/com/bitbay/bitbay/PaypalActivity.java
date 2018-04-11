@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -17,6 +19,7 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class PaypalActivity extends AppCompatActivity {
 
@@ -28,6 +31,7 @@ public class PaypalActivity extends AppCompatActivity {
     int m_paypalRequestCode = 999; //
     int price;
     TextView totalCartValue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +40,6 @@ public class PaypalActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         price = (int)bundle.get("price");
-
         String s_price = String.valueOf(price);
         totalCartValue = findViewById(R.id.total_amount);
         totalCartValue.setText("Total cart value is " + s_price + " $");
@@ -68,6 +71,10 @@ public class PaypalActivity extends AppCompatActivity {
                     if (state.equals("approved")){
                         m_response.setText("payment approved");
                         Toast.makeText(getApplication(), "Payment Approved", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = getIntent();
+                        intent.putExtra("paymentResume","yes");
+
                         finish();
                     }
                     else

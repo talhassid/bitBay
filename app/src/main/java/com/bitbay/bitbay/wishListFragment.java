@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,17 +73,6 @@ public class wishListFragment extends Fragment {
 
         mItemListView.setAdapter(userCartListAdapter);
 
-//        final Runnable run = new Runnable() {
-//            public void run() {
-//                mItemsArrayList.clear();
-//                mItemsArrayList.addAll();
-//                userCartListAdapter.notifyDataSetChanged();
-//                mItemListView.invalidateViews();
-//                mItemListView.refreshDrawableState();
-//            }
-//
-//        };
-
         activity.mDatabaseRef.child("items").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -140,10 +130,18 @@ public class wishListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        for (StoreItem item : mItemsArrayList){
-            ApiFireBaseStore.removeItemFromDatebase(activity.mDatabaseRef,item);
-        }
         Log.i("After payment ","Return to wishlist fragment");
+
+        Intent intent = activity.getIntent();
+        Bundle bundle = intent.getExtras();
+        String src = (String) bundle.get("paymentResume");
+        intent.putExtra("paymentResume","no");
+        if (src == "yes") {
+            for (StoreItem item : mItemsArrayList) {
+                ApiFireBaseStore.removeItemFromDatebase(activity.mDatabaseRef, item);
+            }
+        }
+
 
         //Remove all the items from cart - firebase and view
         //Remove items from sellers list
