@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_green"
+    android:background="#fff"
     tools:context="com.bitbay.bitbay.OrdersFragment"
     android:orientation="vertical">
 
@@ -14,8 +14,8 @@
         android:id="@+id/orders11"
         android:textStyle="bold"
         android:text="Can I cancel my order after I've placed it?"
-        android:textColor="@color/white"
-        android:layout_marginTop="50dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="60dp"
         android:textSize="15sp"/>
 
 
@@ -24,18 +24,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/orders11"
-        android:layout_marginTop="70dp"
-        android:text="There are varying time limits in which you can cancel your order
-dependent on which delivery option you've chosen: Next Day Delivery,
-Evening Next Day Delivery and ASOS Instant –  15...\n"
-        android:textColor="@color/white"
+        android:layout_marginTop="75dp"
+        android:text="...\n"
+        android:textColor="@color/black"
         android:textSize="15sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/orders1"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold"
         android:id="@+id/orders2"
@@ -46,19 +44,17 @@ Evening Next Day Delivery and ASOS Instant –  15...\n"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/orders2"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="15sp"
         android:id="@+id/orders3"
         android:layout_marginTop="200dp"
-        android:text="We want to sort out any issues with incorrect items straight away.
-Please  contact our Customer Care team with your order number and the incorrect item's name
-and product number. We'll get back...\n"/>
+        android:text="...\n"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold"
         android:id="@+id/orders44"
@@ -67,12 +63,10 @@ and product number. We'll get back...\n"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="15sp"
         android:id="@+id/orders4"
         android:layout_marginTop="320dp"
-        android:text="We're really quick at packing your order up which means we can't make
-any changes once you've placed it. This includes changing the delivery option, delivery address or
-payment method. However, you..."/>
+        android:text="..."/>
 
 </FrameLayout>

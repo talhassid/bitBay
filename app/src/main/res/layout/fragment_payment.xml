@@ -5,14 +5,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_green"
+    android:background="@color/white"
     tools:context="com.bitbay.bitbay.PaymentFragment">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Lets' pay"
-        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="60dp"
+        android:text="About the Payments in our app\n..."
+        android:textColor="@color/black"
         android:textSize="15sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="center"
+        android:layout_gravity="bottom"
+        android:src="@drawable/cash" />
 
 </FrameLayout>

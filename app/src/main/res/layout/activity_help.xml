@@ -12,7 +12,24 @@
     <FrameLayout
         android:id="@+id/help_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginTop="80dp"
+            android:textSize="20dp"
+            android:text="More details about \norders, payments, delivery and returns \n\nUp Here"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:src="@drawable/ic_info" />
+    </FrameLayout>
     <FrameLayout
         android:id="@+id/help_container"
         android:layout_width="match_parent"
@@ -30,6 +47,7 @@
         android:layout_alignParentTop="true"
         app:menu="@menu/help_menu" >
     </android.support.design.widget.BottomNavigationView>
+
 
 
 </RelativeLayout>
