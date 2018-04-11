@@ -4,6 +4,7 @@ package com.bitbay.bitbay;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -158,6 +159,14 @@ public class UploadFragment extends Fragment {
                             activity.getMyAccount().getId(), myCategories.toString());
 
                     myCategories.clear(); // clear the categories from old upload to new
+                    mItemCategories.clear();
+                    for (int i =0 ; i < checkedBox.length ; i++){
+                        checkedBox[i] = false;
+                    }
+                    mPrice.setText("");
+                    mDescription.setText("");
+
+
                     ApiFireBaseStore.addItem2DataBase(activity.mDatabaseRef ,item);
 
                 }
