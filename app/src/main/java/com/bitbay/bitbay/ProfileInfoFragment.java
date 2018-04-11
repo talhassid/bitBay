@@ -59,11 +59,13 @@ public class ProfileInfoFragment extends Fragment {
 
         //views
         mIdTokenTextView = view.findViewById(R.id.detail);
-        mIdTokenTextView.setText(getString(R.string.id_token_fmt,"\nname: "+ name
-                +"\nemail: ")+email +"\nuser number: "+id);
+        mIdTokenTextView.setText("______________________________"+"\nName: \n"+ name
+                +"\n______________________________"+"\nEmail: \n"+email +
+                "\n______________________________"+"\nUser number: \n"+id
+                +"\n______________________________");
 
         iv = view.findViewById(R.id.imageView1);
-        Picasso.get().load(personPhoto).into(iv);
+        Picasso.get().load(personPhoto).resize(250,350).centerCrop().into(iv);
 //        iv.setImageURI(personPhoto);
 
         return view ;

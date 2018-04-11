@@ -27,7 +27,7 @@ public class PaypalActivity extends AppCompatActivity {
     int m_paypalRequestCode = 999; //
     int price;
     Button payButton;
-
+    TextView totalCartValue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +38,10 @@ public class PaypalActivity extends AppCompatActivity {
         price = (int)bundle.get("price");
 
         String s_price = String.valueOf(price);
-        payButton = findViewById(R.id.pay_button);
-        payButton.setText("pay " + s_price + " $");
+        totalCartValue = findViewById(R.id.total_amount);
+        totalCartValue.setText("Total cart value is " + s_price + " $");
+//        payButton = findViewById(R.id.pay_button);
+//        payButton.setText("pay " + s_price + " $");
         m_response = (TextView) findViewById(R.id.response);
         m_configuration = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
                 .clientId(m_paypalClientId);
