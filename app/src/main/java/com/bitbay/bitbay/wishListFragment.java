@@ -140,8 +140,13 @@ public class wishListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        for (StoreItem item : mItemsArrayList){
+            ApiFireBaseStore.removeItemFromDatebase(activity.mDatabaseRef,item);
+        }
+        Log.i("After payment ","Return to wishlist fragment");
+
         //Remove all the items from cart - firebase and view
         //Remove items from sellers list
-        Log.i("After payment ","Return to wishlist fragment");
+
     }
 }

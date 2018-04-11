@@ -46,7 +46,8 @@ public class ActivityFilteredCategories extends Activity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 String userKey = String.valueOf(dataSnapshot.child("userId").getValue());
-                if (userKey.equals(myAccount.getId())) { //TODO: add not
+                if (true) { //TODO: replace this with next line - this is for debug
+//                if (!userKey.equals(myAccount.getId())) { //TODO: add not
 
                     String price = String.valueOf(dataSnapshot.child("price").getValue());
                     String imagePath = String.valueOf(dataSnapshot.child("storagePath").getValue());

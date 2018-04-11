@@ -46,6 +46,7 @@ public class LoggedInActivity extends AppCompatActivity {
 
                 Intent profileIntent = new Intent(LoggedInActivity.this, ProfileActivity.class);
                 profileIntent.putExtra("target","sell");
+                profileIntent.putExtra("account",myAccount);
                 startActivity(profileIntent);
 
             }

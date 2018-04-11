@@ -77,18 +77,19 @@ public class ProfileActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //setting the profile info as the main activity view - (*need to find better way)
-        //*SA-r.s
+
         String target = (String) bundle.get("target");
 
 
-        FragmentManager fragmentManager = getFragmentManager();
-
         if ("sell".equals(target)){
+
             UploadFragment sell = new UploadFragment();
+            FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment, sell).commit();
+
         }
-        else if("info".equals(target)){
+        else{
+            FragmentManager fragmentManager = getFragmentManager();
             ProfileInfoFragment info = new ProfileInfoFragment();
             fragmentManager.beginTransaction().replace(R.id.fragment, info).commit();
         }

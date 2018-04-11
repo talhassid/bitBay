@@ -25,7 +25,7 @@ public class PaypalActivity extends AppCompatActivity {
     String m_paypalClientId = "ATom87_nHy9ovxAQo1Yv4q8nwfHHVwwT8w13LwX8eDf22v0BGrYYsoRdw5n9S7BTtvEVFsHHHewh6Jcu";
     Intent m_service;
     int m_paypalRequestCode = 999; //
-    int price;
+    float price;
     Button payButton;
 
     @Override
@@ -35,7 +35,7 @@ public class PaypalActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        price = (int)bundle.get("price");
+        price = (float)bundle.get("price");
 
         String s_price = String.valueOf(price);
         payButton = findViewById(R.id.pay_button);

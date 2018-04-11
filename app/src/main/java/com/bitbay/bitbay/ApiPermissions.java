@@ -16,7 +16,7 @@ import static android.support.v4.app.ActivityCompat.requestPermissions;
 
 public class ApiPermissions {
 
-    public boolean hasPermissions(String perm, Activity activity){
+    public static boolean hasPermissions(String perm, Activity activity){
         int res = PackageManager.PERMISSION_GRANTED ;
         String[] permissions = new String[]{perm};
 

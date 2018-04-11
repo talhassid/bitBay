@@ -137,8 +137,10 @@ public class UploadFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        ApiPermissions.requestPerms(android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                activity.getStorageIntent(),activity);
+        if (!ApiPermissions.hasPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,activity)){
+            ApiPermissions.requestPerms(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    activity.getStorageIntent(),activity);
+        }
 
         if (requestCode == activity.getStorageIntent() && resultCode == activity.RESULT_OK) {
             Uri uri = data.getData();
@@ -153,7 +155,7 @@ public class UploadFragment extends Fragment {
                     String description = mDescription.getText().toString();
 
                     StoreItem item = new StoreItem(price,description,taskSnapshot.getDownloadUrl().toString(),
-                            activity.myAccount.getId(), myCategories.toString());
+                            activity.getMyAccount().getId(), myCategories.toString());
 
                     myCategories.clear(); // clear the categories from old upload to new
                     ApiFireBaseStore.addItem2DataBase(activity.mDatabaseRef ,item);
