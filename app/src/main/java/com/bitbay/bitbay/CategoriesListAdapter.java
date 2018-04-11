@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DatabaseReference;
@@ -69,6 +70,7 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
             public void onClick(View view) {
                 Log.i("info: ","ADD TO CART BUTTON PRESSED");
                 ApiFireBaseStore.addItem2Cart(mDatabaseRef,item,myAccount.getId());
+                Toast.makeText(getContext(), "Added to cart successfully", Toast.LENGTH_LONG).show();
 
             }
         });

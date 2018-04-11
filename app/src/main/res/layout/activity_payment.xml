@@ -25,7 +25,7 @@
         android:textSize="20sp"
         android:onClick="pay"
         android:textColor="#fff"
-        tools:text="pay"/>
+        android:text="pay"/>
     <TextView
         android:id="@+id/response"
         android:layout_width="match_parent"

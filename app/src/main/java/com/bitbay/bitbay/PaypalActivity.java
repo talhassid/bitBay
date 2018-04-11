@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
@@ -26,7 +27,6 @@ public class PaypalActivity extends AppCompatActivity {
     Intent m_service;
     int m_paypalRequestCode = 999; //
     int price;
-    Button payButton;
     TextView totalCartValue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,6 @@ public class PaypalActivity extends AppCompatActivity {
         String s_price = String.valueOf(price);
         totalCartValue = findViewById(R.id.total_amount);
         totalCartValue.setText("Total cart value is " + s_price + " $");
-//        payButton = findViewById(R.id.pay_button);
-//        payButton.setText("pay " + s_price + " $");
         m_response = (TextView) findViewById(R.id.response);
         m_configuration = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
                 .clientId(m_paypalClientId);
@@ -69,6 +67,7 @@ public class PaypalActivity extends AppCompatActivity {
                     String state = confirmation.getProofOfPayment().getState();
                     if (state.equals("approved")){
                         m_response.setText("payment approved");
+                        Toast.makeText(getApplication(), "Payment Approved", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     else
