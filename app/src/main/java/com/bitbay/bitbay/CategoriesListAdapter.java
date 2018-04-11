@@ -70,7 +70,7 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
             public void onClick(View view) {
                 Log.i("info: ","ADD TO CART BUTTON PRESSED");
                 ApiFireBaseStore.addItem2Cart(mDatabaseRef,item,myAccount.getId());
-                Toast.makeText(getContext(), "Added to cart successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Added to cart successfully", Toast.LENGTH_SHORT).show();
 
             }
         });
