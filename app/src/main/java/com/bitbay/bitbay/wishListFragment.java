@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
 
@@ -32,7 +33,10 @@ public class wishListFragment extends Fragment {
     private ListView mItemListView;
     private ArrayList<StoreItem> mItemsArrayList = new ArrayList<>();
     int cartFullPrice;
+    String src;
+
     public wishListFragment() {
+
         // Required empty public constructor
     }
 
@@ -63,6 +67,7 @@ public class wishListFragment extends Fragment {
                 }
                 Intent paymentIntent = new Intent(getActivity(), PaypalActivity.class);
                 paymentIntent.putExtra("price",cartFullPrice);
+                paymentIntent.putExtra("gAccount",activity.getMyAccount());
                 startActivity(paymentIntent);
             }
         });
@@ -78,8 +83,9 @@ public class wishListFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.e("DEBUG","onChildAdded");
 
-                String userKey= String.valueOf(dataSnapshot.child("userId").getValue());
-                if(dataSnapshot.child("cartWatchers").hasChild(userKey)) {
+                String userKey= activity.getMyAccount().getId();
+                String watcherKey= String.valueOf(dataSnapshot.child("cartWatchers").child(userKey).getValue());
+                if(userKey.equals(watcherKey)) {
                     String price = String.valueOf(dataSnapshot.child("price").getValue());
                     String imagePath = String.valueOf(dataSnapshot.child("storagePath").getValue());
                     String description = String.valueOf(dataSnapshot.child("description").getValue());
@@ -90,9 +96,23 @@ public class wishListFragment extends Fragment {
                     Log.i("**imagePath**", imagePath);
                     Log.i("**description**", description);
 
-                    StoreItem item = new StoreItem(price,description,imagePath,userKey,categories);
-                    item.setItemKey(itemKey);
-                    (mItemsArrayList).add(item);
+                    StoreItem item = new StoreItem(price,description,imagePath,
+                            activity.getMyAccount().getId(),categories);
+                    item.setItemKey(dataSnapshot.getKey());
+
+                    if ("paypal".equals(src)) {
+                        for (DataSnapshot ds: dataSnapshot.child("cartWatchers").getChildren()) {
+                         String watcher = (String) ds.getValue();
+                         item.add2CartWatchers(watcher);
+                        }
+                        ApiFireBaseStore.removeItemFromDatebase(activity.mDatabaseRef, item);
+                    }
+                    else{
+
+                        (mItemsArrayList).add(item);
+                    }
+
+
 
             }
                 userCartListAdapter.notifyDataSetChanged();
@@ -134,17 +154,17 @@ public class wishListFragment extends Fragment {
 
         Intent intent = activity.getIntent();
         Bundle bundle = intent.getExtras();
-        String src = (String) bundle.get("paymentResume");
-        intent.putExtra("paymentResume","no");
-        if (src == "yes") {
+        src = (String) bundle.get("callingSrc");
+        intent.putExtra("paymentResume","null");
+        if ("paypal".equals(src)) {
             for (StoreItem item : mItemsArrayList) {
                 ApiFireBaseStore.removeItemFromDatebase(activity.mDatabaseRef, item);
             }
         }
 
 
-        //Remove all the items from cart - firebase and view
-        //Remove items from sellers list
+//        Remove all the items from cart - firebase and view
+//        Remove items from sellers list
 
     }
 }

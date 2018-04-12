@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
@@ -31,6 +32,7 @@ public class PaypalActivity extends AppCompatActivity {
     int m_paypalRequestCode = 999; //
     int price;
     TextView totalCartValue;
+    GoogleSignInAccount myAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class PaypalActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         price = (int)bundle.get("price");
+        myAccount = (GoogleSignInAccount) bundle.get("gAccount");
         String s_price = String.valueOf(price);
         totalCartValue = findViewById(R.id.total_amount);
         totalCartValue.setText("Total cart value is " + s_price + " $");
@@ -72,10 +75,11 @@ public class PaypalActivity extends AppCompatActivity {
                         m_response.setText("payment approved");
                         Toast.makeText(getApplication(), "Payment Approved", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = getIntent();
-                        intent.putExtra("paymentResume","yes");
-
-                        finish();
+                        Intent cartIntent = new Intent(this, ProfileActivity.class);
+                        cartIntent.putExtra("target","cart");
+                        cartIntent.putExtra("account",myAccount);
+                        cartIntent.putExtra("callingSrc","paypal");
+                        startActivity(cartIntent);
                     }
                     else
                         m_response.setText("error in the payment");

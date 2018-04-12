@@ -41,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity
     protected DatabaseReference mDatabaseUsersRef;
     protected DatabaseReference mDatabaseItemsRef;
     protected DatabaseReference mDatabaseRef;
-
+//    String callingSrc ;
     private static final int STORAGE_INTENT = 2 ;
 
     @Override
@@ -57,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         myAccount = (GoogleSignInAccount)bundle.get("account");
+//        callingSrc = bundle.get("callingSrc");
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -87,6 +88,11 @@ public class ProfileActivity extends AppCompatActivity
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment, sell).commit();
 
+        }
+        else if("cart".equals(target)){
+            wishListFragment cart = new wishListFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment, cart).commit();
         }
         else{
             FragmentManager fragmentManager = getFragmentManager();
