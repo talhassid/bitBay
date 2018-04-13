@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -35,6 +37,17 @@ public class ActivityFilteredCategories extends Activity {
         myFilter = (String) bundle.get("filter");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         mCategoryListView = this.findViewById(R.id.category_items);
+
+        Button go2Cart = this.findViewById(R.id.go_to_cart_button);
+        go2Cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cartIntent = new Intent(ActivityFilteredCategories.this, ProfileActivity.class);
+                cartIntent.putExtra("account",myAccount);
+                cartIntent.putExtra("target","cart");
+                startActivity(cartIntent);
+            }
+        });
 
         final CategoriesListAdapter categoriesListAdapter = new CategoriesListAdapter(
                 this, R.layout.category_items_list_view, mItemsArrayList,myAccount,mDatabaseRef);
