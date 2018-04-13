@@ -15,6 +15,16 @@
         android:layout_gravity="bottom|right"
         android:text="buy" />
 
+    <Button
+        android:id="@+id/back_to_store_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="bottom|right"
+        android:text="back to store" />
+
     <ListView
         android:id="@+id/items_list"
         android:layout_width="match_parent"

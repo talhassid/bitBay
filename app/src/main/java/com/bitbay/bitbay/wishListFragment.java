@@ -50,6 +50,17 @@ public class wishListFragment extends Fragment {
         activity = (ProfileActivity) getActivity();
         mItemListView = rootView.findViewById(R.id.items_list);
         Button paymentButton = (Button)rootView.findViewById(R.id.cart_payment_button);
+        Button back2Store = rootView.findViewById(R.id.back_to_store_button);
+        back2Store.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent storeIntent = new Intent(getActivity(), StoreActivity.class);
+                storeIntent.putExtra("account",activity.getMyAccount());
+                startActivity(storeIntent);
+            }
+        });
+
+
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
