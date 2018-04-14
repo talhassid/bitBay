@@ -44,11 +44,22 @@
         tools:text="jhgjhgjhgj" />
 
     <Button
+        android:id="@+id/sellerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:textStyle="bold"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textViewDesription"
+        android:layout_marginEnd="60dp"
+        tools:text="seller name is" />
+
+    <Button
         android:id="@+id/add_to_cart_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/imageViewItem"
-        android:layout_below="@+id/textViewDesription"
+        android:layout_below="@+id/sellerName"
         android:layout_marginTop="27dp"
         android:text="Add to cart" />
 

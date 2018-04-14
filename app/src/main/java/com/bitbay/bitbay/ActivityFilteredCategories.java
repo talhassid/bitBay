@@ -68,15 +68,22 @@ public class ActivityFilteredCategories extends Activity {
                     String categories = (String) dataSnapshot.child("categories").getValue();
                     String itemKey = (String) dataSnapshot.child("item").getValue();
 
-                    Log.i("**categories**", categories);
-                    Log.i("*myfilter is:*", myFilter);
-
-                    if (categories.contains(myFilter)) {
-                        Log.i("*categories contain it*", myFilter);
-                        StoreItem item = new StoreItem(price, description, imagePath, userKey, categories);
-                        item.setItemKey(itemKey);
-                        (mItemsArrayList).add(item);
+                    if (categories == null){
+                        Log.i("**categories**", "is null :(");
                     }
+                    else {
+                        Log.i("**categories**", categories);
+                        Log.i("*myfilter is:*", myFilter);
+
+                        if (categories.contains(myFilter)) {
+                            Log.i("*categories contain it*", myFilter);
+                            StoreItem item = new StoreItem(price, description, imagePath, userKey, categories);
+                            item.setItemKey(itemKey);
+                            (mItemsArrayList).add(item);
+                        }
+                    }
+
+
 
                 }
                 categoriesListAdapter.notifyDataSetChanged();

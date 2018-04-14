@@ -26,6 +26,10 @@
         <activity android:name=".HelpActivity" />
         <activity android:name=".StoreActivity" />
         <activity android:name=".PaypalActivity" />
+        <activity android:name=".SellerActivity" />
+        <activity android:name=".RateActivity"
+            android:theme="@style/AppTheme.CustomTheme"/>
+
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"

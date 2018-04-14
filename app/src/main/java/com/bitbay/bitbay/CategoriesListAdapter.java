@@ -2,6 +2,7 @@ package com.bitbay.bitbay;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,6 +33,7 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
     int resource ;
     GoogleSignInAccount myAccount = null ;
     DatabaseReference mDatabaseRef;
+    ImgHolder holder;
 
 
     public CategoriesListAdapter(Context context, int resource, ArrayList<StoreItem> items,
@@ -41,9 +46,23 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
         this.mDatabaseRef = mDatabaseRef;
     }
 
+    public void updateHolderSellerName(StoreItem item, String sellerName){
+        holder.SELLER_NAME.setText(sellerName);
+        final String sellerKey = item.getSellerKey();
+        holder.SELLER_NAME.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent sellerPage = new Intent(getContext(), SellerActivity.class);
+                sellerPage.putExtra("sellerKey", sellerKey);
+                context.startActivity(sellerPage);
+            }
+        });
+
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        ImgHolder holder;
         if(convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.getContext().getSystemService(
                     Activity.LAYOUT_INFLATER_SERVICE);
@@ -53,6 +72,7 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
             holder.IMAGE = convertView.findViewById(R.id.imageViewItem);
             holder.PRICE = convertView.findViewById(R.id.textViewPrice);
             holder.DESCRIPTION = convertView.findViewById(R.id.textViewDesription);
+            holder.SELLER_NAME = convertView.findViewById(R.id.sellerName);
             holder.Button = convertView.findViewById(R.id.add_to_cart_button);
 
             convertView.setTag(holder);
@@ -65,6 +85,26 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
         Picasso.get().load(item.getImagePath()).into(holder.IMAGE);
         holder.PRICE.setText(item.getPrice());
         holder.DESCRIPTION.setText(item.getDescription());
+        final DatabaseReference seller
+                = this.mDatabaseRef.child("users").child(item.getSellerKey()).child("name");
+        seller.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String sellerName = dataSnapshot.getValue(String.class);
+                updateHolderSellerName(item, sellerName);
+                if (sellerName == null){
+                    Log.i("seller name is null ",":(");
+                }
+                else{
+                    Log.i("seller name: ",sellerName);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
         holder.Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +125,7 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
         ImageView IMAGE;
         TextView PRICE;
         TextView DESCRIPTION;
+        TextView SELLER_NAME;
         Button Button;
     }
 

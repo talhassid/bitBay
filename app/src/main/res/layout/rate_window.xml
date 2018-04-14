@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:background="#d3d3d3">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical|center_horizontal">
+
+
+        <Button
+            android:id="@+id/star1"
+            android:layout_width="60dp"
+            android:layout_height="59dp"
+            android:background="@drawable/star"
+            android:text="1"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <Button
+            android:id="@+id/star2"
+            android:layout_width="60dp"
+            android:layout_height="59dp"
+            android:background="@drawable/star"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <Button
+            android:id="@+id/star3"
+            android:layout_width="60dp"
+            android:layout_height="59dp"
+            android:background="@drawable/star"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <Button
+            android:id="@+id/star4"
+            android:layout_width="60dp"
+            android:layout_height="59dp"
+            android:background="@drawable/star"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <Button
+            android:id="@+id/star5"
+            android:layout_width="60dp"
+            android:layout_height="59dp"
+            android:background="@drawable/star"
+            android:text="5"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</RelativeLayout>
