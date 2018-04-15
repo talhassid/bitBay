@@ -39,6 +39,21 @@ public class ApiFireBaseStore {
 
     }
 
+    static void addItem2History(DatabaseReference mDataBase,StoreItem item,String userKey){
+        DatabaseReference mUserRef = mDataBase.child("users");
+
+        mUserRef.child(userKey).child("history").child(item.getItemKey()).child("storagePath").
+                setValue(item.getImagePath());
+        mUserRef.child(userKey).child("history").child(item.getItemKey()).child("price").
+                setValue(item.getPrice());
+        mUserRef.child(userKey).child("history").child(item.getItemKey()).child("description").
+                setValue(item.getDescription());
+        mUserRef.child(userKey).child("history").child(item.getItemKey()).child("item").
+                setValue(item.getItemKey());
+
+
+    }
+
     static void readDataOnce(DatabaseReference mDataBaseRef, GoogleSignInAccount mAccount,
                                     final long[] val,final OnGetDataListener listener){
 

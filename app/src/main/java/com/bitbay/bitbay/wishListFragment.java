@@ -116,6 +116,7 @@ public class wishListFragment extends Fragment {
                          String watcher = (String) ds.getValue();
                          item.add2CartWatchers(watcher);
                         }
+                        ApiFireBaseStore.addItem2History(activity.mDatabaseRef,item,userKey);
                         ApiFireBaseStore.removeItemFromDatebase(activity.mDatabaseRef, item);
                     }
                     else{
@@ -167,6 +168,8 @@ public class wishListFragment extends Fragment {
         Bundle bundle = intent.getExtras();
         src = (String) bundle.get("callingSrc");
         intent.putExtra("paymentResume","null");
+
+        //todo: this don't do anything! remove it!  mItemsArrayList is empty
         if ("paypal".equals(src)) {
             for (StoreItem item : mItemsArrayList) {
                 ApiFireBaseStore.removeItemFromDatebase(activity.mDatabaseRef, item);
