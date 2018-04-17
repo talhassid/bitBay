@@ -125,7 +125,7 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
         ImageView IMAGE;
         TextView PRICE;
         TextView DESCRIPTION;
-        TextView SELLER_NAME;
+        Button SELLER_NAME;
         Button Button;
     }
 
