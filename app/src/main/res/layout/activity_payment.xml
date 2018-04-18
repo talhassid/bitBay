@@ -34,4 +34,21 @@
         android:layout_marginTop="50dp"
         android:textSize="20sp"
         android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/bitcoinPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="BitCoin Payment method"
+        android:onClick="moveToBitCoinPayment"
+        />
+    <Button
+        android:id="@+id/bitcoinValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="BitCoin Value"
+        android:onClick="moveToBitCoinValue"
+        />
 </LinearLayout>

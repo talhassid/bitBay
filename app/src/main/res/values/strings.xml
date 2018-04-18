@@ -86,5 +86,7 @@
     <string name="title_activity_filtered_categories">ActivityFilteredCategories</string>
     <string name="cart_payment">Button</string>
 
+    <string name="redirecting">Redirecting to authorization...</string>
+
 
 </resources>
