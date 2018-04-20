@@ -16,11 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SignInActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".LoggedInActivity" />
         <activity android:name=".HelpActivity" />
@@ -28,7 +28,13 @@
         <activity android:name=".PaypalActivity" />
         <activity android:name=".SellerActivity" />
         <activity android:name=".BitcoinValueActivity" />
-        <activity android:name=".BitcoinPaymentActivity" />
+        <activity android:name=".BitcoinPaymentActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".RateActivity"
             android:theme="@style/AppTheme.CustomTheme"/>
 

@@ -10,38 +10,15 @@
     android:orientation="vertical"
     tools:context=".BitcoinPaymentActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="key: "/>
-
-        <EditText
-            android:id="@+id/userKey"
-            android:layout_width="154dp"
-            android:layout_height="61dp" />
-        <Button
-            android:id="@+id/insertKey"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Insert Key"
-            android:onClick="getKey"/>
-
-    </LinearLayout>
-
     <TextView
-        android:id="@+id/statusBit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="21dp"
-        android:text="blaaaaaaaaaaaaa" />
-
+        android:id="@+id/tv_sendto_address"
+        android:hint="sendto address"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_transaction_result"
+        android:hint="transaction result"/>
 
 </LinearLayout>
