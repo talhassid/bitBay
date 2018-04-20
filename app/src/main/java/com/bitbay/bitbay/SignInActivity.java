@@ -133,10 +133,6 @@ public class SignInActivity extends AppCompatActivity implements
         DatabaseReference user = mDatabaseRef.child(userId);
         user.child("email").setValue(email);
         user.child("name").setValue(name);
-
-        String token = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, "InstanceID token: " + token);
-        Log.i(TAG, "InstanceID token: " + token);
     }
 
     private void signOut() {

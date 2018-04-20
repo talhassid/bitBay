@@ -43,9 +43,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService{
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-
-            handleNow();
-
             sendNotification(remoteMessage.getNotification().getBody());
         }
 
@@ -58,15 +55,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService{
         // message, here is where that should be initiated. See sendNotification method below.
     }
     // [END receive_message]
-
-
-
-    /**
-     * Handle time allotted to BroadcastReceivers.
-     */
-    private void handleNow() {
-        Log.d(TAG, "Short lived task is done.");
-    }
 
     /**
      * Create and show a simple notification containing the received FCM message.
