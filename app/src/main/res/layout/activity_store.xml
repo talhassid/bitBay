@@ -23,10 +23,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="#fff"
+                android:drawableRight="@drawable/newin"
                 android:text="New In"
                 android:textColor="#000"
-                android:textSize="15sp"
-                android:drawableRight="@drawable/newin"/>
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/category_2"
@@ -35,10 +35,10 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="#fff"
+                android:drawableRight="@drawable/fashion"
                 android:text="Fashion"
                 android:textColor="#000"
-                android:textSize="15sp"
-                android:drawableRight="@drawable/fashion"/>
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/category_3"
@@ -47,10 +47,10 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="#fff"
+                android:drawableRight="@drawable/elc"
                 android:text="Electronics"
                 android:textColor="#000"
-                android:textSize="15sp"
-                android:drawableRight="@drawable/elc"/>
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/category_4"
@@ -59,10 +59,10 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="#fff"
+                android:drawableRight="@drawable/toys"
                 android:text="Toys"
                 android:textColor="#000"
-                android:textSize="15sp"
-                android:drawableRight="@drawable/toys"/>
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/category_5"
@@ -71,10 +71,10 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="#fff"
+                android:drawableRight="@drawable/sport"
                 android:text="Sporting Goods"
                 android:textColor="#000"
-                android:textSize="15sp"
-                android:drawableRight="@drawable/sport"/>
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/category_6"
@@ -83,10 +83,10 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="#fff"
+                android:drawableRight="@drawable/home"
                 android:text="Home and Garden"
                 android:textColor="#000"
-                android:textSize="15sp"
-                android:drawableRight="@drawable/home"/>
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/category_7"
@@ -95,10 +95,10 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="#fff"
+                android:drawableRight="@drawable/music"
                 android:text="Music"
                 android:textColor="#000"
-                android:textSize="15sp"
-                android:drawableRight="@drawable/music"/>
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/category_8"
@@ -109,7 +109,7 @@
                 android:background="#fff"
                 android:text="Business and Industrial"
                 android:textColor="#000"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/category_9"
@@ -118,10 +118,28 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="#fff"
+                android:drawableRight="@drawable/motors"
                 android:text="Motors"
                 android:textColor="#000"
-                android:textSize="15sp"
-                android:drawableRight="@drawable/motors"/>
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/search_edit_frame"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter search key" />
+
+            <ImageButton
+                android:id="@+id/search_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="5dp"
+                android:maxHeight="40dp"
+                android:maxWidth="40dp"
+                android:padding="5dp"
+                android:src="@drawable/search"
+                android:text="Button" />
 
 
         </LinearLayout>

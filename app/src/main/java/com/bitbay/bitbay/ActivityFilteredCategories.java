@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class ActivityFilteredCategories extends Activity {
 
     protected String myFilter;
+    protected String mySearch;
     protected GoogleSignInAccount myAccount = null ;
     protected DatabaseReference mDatabaseRef;
     protected ListView mCategoryListView ;
@@ -35,6 +36,7 @@ public class ActivityFilteredCategories extends Activity {
         Bundle bundle = intent.getExtras();
         myAccount = (GoogleSignInAccount) bundle.get("account");
         myFilter = (String) bundle.get("filter");
+        mySearch = (String) bundle.get("searchWord");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         mCategoryListView = this.findViewById(R.id.category_items);
 
@@ -75,6 +77,7 @@ public class ActivityFilteredCategories extends Activity {
                         Log.i("**categories**", categories);
                         Log.i("*myfilter is:*", myFilter);
 
+
                         if (categories.contains(myFilter)) {
                             Log.i("*categories contain it*", myFilter);
                             StoreItem item = new StoreItem(price, description, imagePath, userKey, categories);
@@ -83,8 +86,15 @@ public class ActivityFilteredCategories extends Activity {
                         }
                     }
 
-
-
+                    if("search".equals(myFilter)){
+                        Log.i("*inside search filter",mySearch);
+                        if(description.contains(mySearch)) {
+                            Log.i("**search word found*", mySearch);
+                            StoreItem item = new StoreItem(price, description, imagePath, userKey, categories);
+                            item.setItemKey(itemKey);
+                            (mItemsArrayList).add(item);
+                        }
+                    }
                 }
                 categoriesListAdapter.notifyDataSetChanged();
             }

@@ -179,3 +179,6 @@ public class BitcoinPaymentActivity extends AppCompatActivity {
         return createdTx;
     }
 }
+
+
+//https://www.javaworld.com/article/2078482/java-web-development/bitcoin-for-beginners--part-3--the-bitcoinj-api.html

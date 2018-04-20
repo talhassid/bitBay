@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +20,8 @@ public class StoreActivity extends AppCompatActivity implements View.OnClickList
     protected String[] listCategories;
     protected String filter;
     protected GoogleSignInAccount myAccount = null ;
-
+    protected EditText mDescription;
+    protected String mySearchWord;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,10 @@ public class StoreActivity extends AppCompatActivity implements View.OnClickList
         category_8.setOnClickListener(this);
         Button category_9 = (Button) findViewById(R.id.category_9);
         category_9.setOnClickListener(this);
+        ImageButton search_button = findViewById(R.id.search_button);
+        search_button.setOnClickListener(this);
+        mDescription = findViewById(R.id.search_edit_frame);
+
 
 
 
@@ -107,6 +114,13 @@ public class StoreActivity extends AppCompatActivity implements View.OnClickList
                 filter = "Motors";
                 break;
 
+            case R.id.search_button:
+
+                filter = "search";
+                mySearchWord = mDescription.getText().toString();
+                mDescription.setText("");
+                break;
+
             default:
                 filter = "nothing";
                 break;
@@ -114,7 +128,9 @@ public class StoreActivity extends AppCompatActivity implements View.OnClickList
 
         Intent myIntent = new Intent(StoreActivity.this, ActivityFilteredCategories.class);
         myIntent.putExtra("filter",filter);
+        myIntent.putExtra("searchWord",mySearchWord);
         myIntent.putExtra("account",myAccount);
+        mDescription.setText("");
         startActivity(myIntent);
     }
 
