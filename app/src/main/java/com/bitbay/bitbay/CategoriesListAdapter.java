@@ -111,6 +111,7 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
                 Log.i("info: ","ADD TO CART BUTTON PRESSED");
                 ApiFireBaseStore.addItem2Cart(mDatabaseRef, item, myAccount.getId());
 
+                //TODO(Tal): Get the real token from the Firebase DB.
                 String sellerToken = "cKRI28GDBxs:APA91bETAOZoZ9pFFuYToBz2nCiD5ryTlC_PTy7ARl641IuXQgZFKV9fPLC2ruf45Q5v4sDzWuZAkWzkdYRP9KI3HZsZPvGZyjmka7cE8AzNz7xgAmSryPU_Ee-jvmYw22pYfqZ7p_h2";
 
                 FirebaseMessagingClient fcmClient = new FirebaseMessagingClient();
