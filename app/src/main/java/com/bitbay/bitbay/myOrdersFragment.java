@@ -52,6 +52,7 @@ public class myOrdersFragment extends Fragment {
 
 
                 String price = String.valueOf(dataSnapshot.child("price").getValue());
+                String address = String.valueOf(dataSnapshot.child("address").getValue());
                 String imagePath = String.valueOf(dataSnapshot.child("storagePath").getValue());
                 String description = String.valueOf(dataSnapshot.child("description").getValue());
                 String categories = (String) dataSnapshot.child("categories").getValue();
@@ -61,7 +62,7 @@ public class myOrdersFragment extends Fragment {
                 Log.i("**imagePath**", imagePath);
                 Log.i("**description**", description);
 
-                StoreItem item = new StoreItem(price,description,imagePath,userId,categories);
+                StoreItem item = new StoreItem(price,description,imagePath,userId,categories,address);
                 item.setItemKey(itemKey);
 
                 (mHistoryItemsArrayList).add(item);

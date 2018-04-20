@@ -12,17 +12,23 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -39,6 +45,8 @@ public class UploadFragment extends Fragment {
     private ProfileActivity activity;
     private EditText mPrice;
     private EditText mDescription;
+    private EditText mAddress;
+    private AlertDialog addressDialog;
 
     String[] listCategories;
     boolean[] checkedBox;
@@ -58,22 +66,29 @@ public class UploadFragment extends Fragment {
         activity = (ProfileActivity) getActivity();
         uploadButton = view.findViewById(R.id.upload_button);
         categoryButton = view.findViewById(R.id.category_button);
+        String addressExplain = "If you want to be paid with bitcoin\nplease enter a valid recipient address.";
+        addressDialog = new AlertDialog.Builder(getActivity()).create();
+        addressDialog.setTitle("Recipient Address");
+        addressDialog.setMessage(addressExplain);
+        addressDialog.show();
 
         listCategories = getResources().getStringArray(R.array.category_list);
         checkedBox = new boolean[listCategories.length];
-
         categoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(activity); // verify that activity is good and not context/
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(activity); // verify that
+                // activity is good and not context/
                 mBuilder.setTitle("chose category for you product");
-                mBuilder.setMultiChoiceItems(listCategories, checkedBox, new DialogInterface.OnMultiChoiceClickListener() {
+                mBuilder.setMultiChoiceItems(listCategories, checkedBox, new DialogInterface
+                        .OnMultiChoiceClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
-                        if(isChecked){
-                            if(!mItemCategories.contains(position)){
+                    public void onClick(DialogInterface dialogInterface, int position, boolean
+                            isChecked) {
+                        if (isChecked) {
+                            if (!mItemCategories.contains(position)) {
                                 mItemCategories.add(position);
-                            }else {
+                            } else {
                                 mItemCategories.remove(position);
                             }
                         }
@@ -84,7 +99,7 @@ public class UploadFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         String category = "";
-                        for(int i=0 ; i <mItemCategories.size();i++){
+                        for (int i = 0; i < mItemCategories.size(); i++) {
                             category = category + listCategories[mItemCategories.get(i)] + ",";
 
                         }
@@ -101,7 +116,7 @@ public class UploadFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
                         myCategories.clear();
-                        for (int i =0 ; i < checkedBox.length ; i ++){
+                        for (int i = 0; i < checkedBox.length; i++) {
                             checkedBox[i] = false;
                             mItemCategories.clear();
                             myCategories.clear();
@@ -116,7 +131,7 @@ public class UploadFragment extends Fragment {
 
         mPrice = view.findViewById(R.id.priceText);
         mDescription = view.findViewById(R.id.descriptionText);
-
+        mAddress = view.findViewById(R.id.sellerAddress);
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,7 +140,7 @@ public class UploadFragment extends Fragment {
 
                 intent.setType("image/*");
 
-                startActivityForResult(intent,activity.getStorageIntent());
+                startActivityForResult(intent, activity.getStorageIntent());
 
             }
         });
@@ -134,20 +149,21 @@ public class UploadFragment extends Fragment {
     }
 
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (!ApiPermissions.hasPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,activity)){
+        if (!ApiPermissions.hasPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                activity)) {
             ApiPermissions.requestPerms(android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                    activity.getStorageIntent(),activity);
+                    activity.getStorageIntent(), activity);
         }
 
         if (requestCode == activity.getStorageIntent() && resultCode == activity.RESULT_OK) {
             Uri uri = data.getData();
             final StorageReference filePath =
                     activity.getStorageRefferance().child("items").child(uri.getLastPathSegment());
-            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask
+                    .TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(activity, "Upload Done", Toast.LENGTH_LONG).show();
@@ -155,27 +171,27 @@ public class UploadFragment extends Fragment {
                     String price = mPrice.getText().toString();
                     String description = mDescription.getText().toString();
 
-                    StoreItem item = new StoreItem(price,description,taskSnapshot.getDownloadUrl().toString(),
-                            activity.getMyAccount().getId(), myCategories.toString());
+                    final String address = mAddress.getText().toString();
+                    StoreItem item = new StoreItem(price, description, taskSnapshot
+                            .getDownloadUrl().toString(),
+                            activity.getMyAccount().getId(), myCategories.toString(),address);
 
                     myCategories.clear(); // clear the categories from old upload to new
                     mItemCategories.clear();
-                    for (int i =0 ; i < checkedBox.length ; i++){
+                    for (int i = 0; i < checkedBox.length; i++) {
                         checkedBox[i] = false;
                     }
                     mPrice.setText("");
                     mDescription.setText("");
+                    mAddress.setText("");
 
-
-                    ApiFireBaseStore.addItem2DataBase(activity.mDatabaseRef ,item);
+                    ApiFireBaseStore.addItem2DataBase(activity.mDatabaseRef, item);
 
                 }
             });
 
         }
     }
-
-
 
 
 }

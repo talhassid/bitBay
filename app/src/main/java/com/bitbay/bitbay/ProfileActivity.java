@@ -83,8 +83,12 @@ public class ProfileActivity extends AppCompatActivity
 
 
         if ("sell".equals(target)){
+            Bundle bundleToFragment = new Bundle();
+            bundleToFragment.putString("google TokenID",myAccount.getId());
 
             UploadFragment sell = new UploadFragment();
+            sell.setArguments(bundleToFragment);
+
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment, sell).commit();
 

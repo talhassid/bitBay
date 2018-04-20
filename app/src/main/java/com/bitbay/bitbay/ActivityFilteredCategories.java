@@ -63,6 +63,7 @@ public class ActivityFilteredCategories extends Activity {
 //                if (!userKey.equals(myAccount.getId())) { //TODO: add not
 
                     String price = String.valueOf(dataSnapshot.child("price").getValue());
+                    String address = String.valueOf(dataSnapshot.child("address").getValue());
                     String imagePath = String.valueOf(dataSnapshot.child("storagePath").getValue());
                     String description = String.valueOf(dataSnapshot.child("description").getValue());
                     String categories = (String) dataSnapshot.child("categories").getValue();
@@ -77,7 +78,7 @@ public class ActivityFilteredCategories extends Activity {
 
                         if (categories.contains(myFilter)) {
                             Log.i("*categories contain it*", myFilter);
-                            StoreItem item = new StoreItem(price, description, imagePath, userKey, categories);
+                            StoreItem item = new StoreItem(price, description, imagePath, userKey, categories,address);
                             item.setItemKey(itemKey);
                             (mItemsArrayList).add(item);
                         }

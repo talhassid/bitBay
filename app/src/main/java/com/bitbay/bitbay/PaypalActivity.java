@@ -11,6 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -18,6 +23,10 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PaypalActivity extends AppCompatActivity {
 
@@ -31,6 +40,8 @@ public class PaypalActivity extends AppCompatActivity {
     int price;
     TextView totalCartValue;
     GoogleSignInAccount myAccount;
+    HashMap<String,String>  cartItems;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +51,8 @@ public class PaypalActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         price = (int) bundle.get("price");
+        cartItems = (HashMap<String,String>) bundle.get("cart items");
+
         myAccount = (GoogleSignInAccount) bundle.get("gAccount");
         String s_price = String.valueOf(price);
         totalCartValue = findViewById(R.id.total_amount);
@@ -66,8 +79,9 @@ public class PaypalActivity extends AppCompatActivity {
     }
 
     void moveToBitCoinPayment(View view) {
-        Intent bitCoinIntent = new Intent(PaypalActivity.this, BitcoinPaymentActivity.class);
+        Intent bitCoinIntent = new Intent(PaypalActivity.this, BitcoinCartActivity.class);
         bitCoinIntent.putExtra("price", price);
+        bitCoinIntent.putExtra("cart items", cartItems);
         startActivity(bitCoinIntent);
     }
 

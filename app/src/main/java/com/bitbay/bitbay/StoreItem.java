@@ -12,15 +12,17 @@ public class StoreItem {
     private String imagePath  ;
     private String categoryList ;
     private String sellerKey ;
+    private String address;
     private String itemKey ;
     private ArrayList<String> cartWatchersList;
 
     StoreItem(String price,String description,String image,
-              String sellerKey,String categoryList){
+              String sellerKey,String categoryList,String address){
         this.price=price ;
         this.description=description;
         this.imagePath = image;
         this.sellerKey = sellerKey;
+        this.address = address;
         this.categoryList = categoryList;
         this.cartWatchersList  = new ArrayList<>();
     }
@@ -38,6 +40,10 @@ public class StoreItem {
 
     public String getSellerKey(){
         return this.sellerKey;
+    }
+
+    public String getAddress(){
+        return this.address;
     }
 
     public String getItemKey(){
