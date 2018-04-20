@@ -114,7 +114,8 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
                 String sellerToken = "cKRI28GDBxs:APA91bETAOZoZ9pFFuYToBz2nCiD5ryTlC_PTy7ARl641IuXQgZFKV9fPLC2ruf45Q5v4sDzWuZAkWzkdYRP9KI3HZsZPvGZyjmka7cE8AzNz7xgAmSryPU_Ee-jvmYw22pYfqZ7p_h2";
 
                 FirebaseMessagingClient fcmClient = new FirebaseMessagingClient();
-                fcmClient.sendMessage(sellerToken, "walla", "Kuala bear", null, "da fuck");
+                //TODO(Tal): Edit your message as you like
+                fcmClient.sendMessage(sellerToken, "bitBay", "The great bitBay message", "Not sure if this field is mandatory");
 
                 Toast.makeText(getContext(), "Added to cart successfully", Toast.LENGTH_SHORT).show();
 

@@ -33,7 +33,7 @@ public class FirebaseMessagingClient {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void sendMessage(final String token, final String title, final String body, final String icon, final String message) {
+    public void sendMessage(final String token, final String title, final String body, final String message) {
 
         new AsyncTask<String, String, String>() {
             @Override
@@ -47,7 +47,6 @@ public class FirebaseMessagingClient {
                     JSONObject notification = new JSONObject();
                     notification.put("body", body);
                     notification.put("title", title);
-                    notification.put("icon", icon);
 
                     JSONObject data = new JSONObject();
                     data.put("message", message);
