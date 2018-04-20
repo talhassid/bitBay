@@ -1,8 +1,10 @@
 package com.bitbay.bitbay;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +16,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.common.net.MediaType;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import com.google.firebase.messaging.FirebaseMessaging.*;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 
 /**
  * Created by roeis on 4/6/2018.
@@ -34,6 +54,67 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
     GoogleSignInAccount myAccount = null ;
     DatabaseReference mDatabaseRef;
     ImgHolder holder;
+
+
+    public static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
+    public static final okhttp3.MediaType JSON
+            = okhttp3.MediaType.parse("application/json; charset=utf-8");
+    OkHttpClient mClient = new OkHttpClient();
+
+    @SuppressLint("StaticFieldLeak")
+    public void sendMessage(final JSONArray rec, final String title, final String body, final String icon, final String message) {
+
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... params) {
+                try {
+
+                    JSONObject root = new JSONObject();
+                    JSONObject notification = new JSONObject();
+                    notification.put("body", body);
+                    notification.put("title", title);
+                    notification.put("icon", icon);
+
+                    JSONObject data = new JSONObject();
+                    data.put("message", message);
+                    root.put("notification", notification);
+                    root.put("data", data);
+                    root.put("registration_ids", rec);
+                    //root.put("to", destToken);
+
+                    String result = postToFCM(root.toString());
+                    return result;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                try {
+                    JSONObject resultJson = new JSONObject(result);
+                    int success, failure;
+                    success = resultJson.getInt("success");
+                    failure = resultJson.getInt("failure");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.execute();
+    }
+
+    String postToFCM(String bodyString) throws IOException {
+        String legacy_key = "AIzaSyD8mX0WRhMdQlI7weDeZrxBVe4p5c9bJz4";
+        RequestBody body = RequestBody.create(JSON, bodyString);
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .header("Authorization", "key=" +legacy_key)
+                .url(FCM_MESSAGE_URL)
+                .post(body)
+                .build();
+        Response response = mClient.newCall(request).execute();
+        return response.body().string();
+    }
 
 
     public CategoriesListAdapter(Context context, int resource, ArrayList<StoreItem> items,
@@ -110,6 +191,14 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
             public void onClick(View view) {
                 Log.i("info: ","ADD TO CART BUTTON PRESSED");
                 ApiFireBaseStore.addItem2Cart(mDatabaseRef,item,myAccount.getId());
+                String sellerToken = "cKRI28GDBxs:APA91bETAOZoZ9pFFuYToBz2nCiD5ryTlC_PTy7ARl641IuXQgZFKV9fPLC2ruf45Q5v4sDzWuZAkWzkdYRP9KI3HZsZPvGZyjmka7cE8AzNz7xgAmSryPU_Ee-jvmYw22pYfqZ7p_h2";
+
+                JSONArray regArray = new JSONArray();
+                regArray.put(sellerToken);
+                regArray.put(item.getSellerKey());
+
+                sendMessage(regArray, "walla", "Kuala bear", null, "da fuck");
+
                 Toast.makeText(getContext(), "Added to cart successfully", Toast.LENGTH_SHORT).show();
 
             }

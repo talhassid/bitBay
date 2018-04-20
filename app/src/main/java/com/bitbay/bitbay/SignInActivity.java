@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 
 public class SignInActivity extends AppCompatActivity implements
@@ -133,6 +134,9 @@ public class SignInActivity extends AppCompatActivity implements
         user.child("email").setValue(email);
         user.child("name").setValue(name);
 
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "InstanceID token: " + token);
+        Log.i(TAG, "InstanceID token: " + token);
     }
 
     private void signOut() {
@@ -209,6 +213,7 @@ public class SignInActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.sign_in_button:
                 getIdToken();
