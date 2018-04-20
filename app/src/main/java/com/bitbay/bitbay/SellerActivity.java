@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -73,7 +75,10 @@ public class SellerActivity extends AppCompatActivity {
                 sellerData = findViewById(R.id.sellerData);
                 sellerData.setText("\nName: " + name + "\n\nEmail: " + email);
                 TextView star = (TextView) findViewById(R.id.star);
-                star.setText(String.valueOf(currentRate));
+                DecimalFormat formatter = new DecimalFormat("##.##"); //
+                formatter.setRoundingMode(RoundingMode.DOWN); // Towards zero
+                String result = formatter.format(currentRate);
+                star.setText(result);
             }
 
             @Override
