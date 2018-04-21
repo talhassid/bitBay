@@ -2,9 +2,7 @@ package com.bitbay.bitbay;
 
 import java.util.ArrayList;
 
-/**
- * Created by roeis on 3/22/2018.
- */
+
 
 public class StoreItem {
     private String price ;

@@ -10,9 +10,7 @@ import com.google.firebase.storage.StorageReference;
 
 import static android.support.v4.app.ActivityCompat.requestPermissions;
 
-/**
- * Created by roeis on 3/22/2018.
- */
+
 
 public class ApiPermissions {
 

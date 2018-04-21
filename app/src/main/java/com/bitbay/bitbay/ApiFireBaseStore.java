@@ -15,9 +15,6 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-/**
- * Created by roeis on 3/22/2018.
- */
 
 public class ApiFireBaseStore {
 

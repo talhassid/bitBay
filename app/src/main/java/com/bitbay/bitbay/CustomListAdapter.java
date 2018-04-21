@@ -20,9 +20,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by roeis on 4/6/2018.
- */
+
 
 public class CustomListAdapter extends ArrayAdapter<StoreItem> {
 
