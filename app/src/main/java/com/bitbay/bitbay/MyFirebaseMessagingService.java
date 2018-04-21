@@ -36,7 +36,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService{
         // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
         // [END_EXCLUDE]
 
-        // TODO(Tal): Handle FCM messages here.
+        // TODO: Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
@@ -62,7 +62,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService{
      * @param messageBody FCM message body received.
      */
     private void sendNotification(String messageBody) {
-        //TODO(Tal): Change the activity to be launched when opening the notification.
+        //TODO: Change the activity to be launched when opening the notification.
         Intent intent = new Intent(this, LoggedInActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,

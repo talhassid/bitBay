@@ -38,7 +38,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService{
      * @param token The new token.
      */
     private void sendRegistrationToServer(String token) {
-        // TODO(Tal): Implement this method to send token to your app server.
+        // TODO: Implement this method to send token to your app server.
 
         Log.d(TAG, "sendRegistrationToServer");
 

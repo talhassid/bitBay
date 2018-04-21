@@ -1,11 +1,9 @@
 package com.bitbay.bitbay;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
@@ -33,6 +31,8 @@ public class SellerActivity extends AppCompatActivity {
     String sellerKey;
     double currentRate = 0;
     int currentNumVoters = 0;
+    String ntificationToken;
+    final FirebaseMessagingClient fcmClient = new FirebaseMessagingClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +42,12 @@ public class SellerActivity extends AppCompatActivity {
         listView = (ExpandableListView) findViewById(R.id.sellerItems);
 
 
-
         //Getting data from prev activity
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         sellerKey = (String) bundle.get("sellerKey");
+
+
 
         final DatabaseReference seller
                 = FirebaseDatabase.getInstance().getReference().child("users").child(sellerKey);
@@ -55,19 +56,23 @@ public class SellerActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String name = String.valueOf(dataSnapshot.child("name").getValue());
                 String email = String.valueOf(dataSnapshot.child("email").getValue());
-                String rateValue = String.valueOf(dataSnapshot.child("rate").child("value").getValue());
-                String rateVoters = String.valueOf(dataSnapshot.child("rate").child("numVoters").getValue());
-
-                if (rateValue.equals("null")){
+                String rateValue = String.valueOf(dataSnapshot.child("rate").child("value")
+                        .getValue());
+                String rateVoters = String.valueOf(dataSnapshot.child("rate").child("numVoters")
+                        .getValue());
+                ntificationToken = String.valueOf(dataSnapshot.child("notificationToken")
+                        .getValue());
+                fcmClient.sendMessage(ntificationToken, "bitBay", "Someone is watching your " +
+                        "profile.", "Not sure if this field is mandatory");
+                Log.i("seller Token ", ntificationToken);
+                if (rateValue.equals("null")) {
                     currentRate = 0;
-                }
-                else{
+                } else {
                     currentRate = Double.parseDouble(rateValue);
                 }
-                if (rateVoters.equals("null")){
+                if (rateVoters.equals("null")) {
                     currentNumVoters = 0;
-                }
-                else {
+                } else {
                     currentNumVoters = Integer.parseInt(rateVoters);
                 }
                 sellerData = findViewById(R.id.sellerData);
@@ -96,9 +101,9 @@ public class SellerActivity extends AppCompatActivity {
                 while (it.hasNext()) {
                     Map.Entry pair = (Map.Entry) it.next();
                     String itemKey = (String) pair.getKey();
-                    HashMap<String,String> itemValue = (HashMap<String,String>) pair.getValue();
+                    HashMap<String, String> itemValue = (HashMap<String, String>) pair.getValue();
                     String userId = itemValue.get("userId");
-                    if (userId.equals(sellerKey) == false){
+                    if (userId.equals(sellerKey) == false) {
                         continue;
                     }
                     HashMap<String, String> item = new HashMap<>();
@@ -110,7 +115,8 @@ public class SellerActivity extends AppCompatActivity {
 
                 }
                 initData(detailedItems);
-                listAdapter = new ExpandableListAdapter(SellerActivity.this, listDataHeader, listHash);
+                listAdapter = new ExpandableListAdapter(SellerActivity.this, listDataHeader,
+                        listHash);
                 listView.setAdapter(listAdapter);
             }
 
@@ -124,10 +130,10 @@ public class SellerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent rateIntent = new Intent(SellerActivity.this, RateActivity.class);
-                rateIntent.putExtra("currentRate",currentRate);
-                rateIntent.putExtra("numVoted",currentNumVoters);
+                rateIntent.putExtra("currentRate", currentRate);
+                rateIntent.putExtra("numVoted", currentNumVoters);
                 //startActivity(rateIntent);
-                startActivityForResult(rateIntent,MY_REQUEST_ID);
+                startActivityForResult(rateIntent, MY_REQUEST_ID);
             }
         });
     }
@@ -143,18 +149,22 @@ public class SellerActivity extends AppCompatActivity {
     }
 
 
-
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         if (requestCode == MY_REQUEST_ID) {
             if (resultCode == RESULT_OK) {
                 Bundle bundle = data.getExtras();
-                double newRate = (double)bundle.get("newRate");
-                int numVoters = (int)bundle.get("numVoters");
+                double newRate = (double) bundle.get("newRate");
+                int numVoters = (int) bundle.get("numVoters");
                 final DatabaseReference seller
-                        = FirebaseDatabase.getInstance().getReference().child("users").child(sellerKey);
+                        = FirebaseDatabase.getInstance().getReference().child("users").child
+                        (sellerKey);
                 seller.child("rate").child("value").setValue(String.valueOf(newRate));
                 seller.child("rate").child("numVoters").setValue(String.valueOf(numVoters));
+                fcmClient.sendMessage(ntificationToken, "bitBay", "Your rate was changed to " + String.valueOf(newRate),
+                        "Not sure if this field is mandatory");
+                Log.i("seller Token ", ntificationToken);
+
             }
         }
     }

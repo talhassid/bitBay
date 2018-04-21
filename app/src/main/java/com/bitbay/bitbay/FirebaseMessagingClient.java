@@ -4,6 +4,11 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
@@ -21,19 +26,22 @@ public class FirebaseMessagingClient {
 
     public static final String TAG = "DummyTag";
     public static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
-    public static final okhttp3.MediaType JSON = okhttp3.MediaType.parse("application/json; charset=utf-8");
+    public static final okhttp3.MediaType JSON = okhttp3.MediaType.parse("application/json; " +
+            "charset=utf-8");
     public static final String SERVER_LEGACY_KEY = "AIzaSyD8mX0WRhMdQlI7weDeZrxBVe4p5c9bJz4";
 
+    public String token;
     private OkHttpClient mClient = new OkHttpClient();
 
 
-    public FirebaseMessagingClient(){
+    public FirebaseMessagingClient() {
         FirebaseInstanceId.getInstance().getToken();
         Log.i(TAG, "InstanceID token: " + FirebaseInstanceId.getInstance().getToken());
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void sendMessage(final String token, final String title, final String body, final String message) {
+    public void sendMessage(final String token, final String title, final String body, final
+    String message) {
 
         new AsyncTask<String, String, String>() {
             @Override
@@ -87,4 +95,6 @@ public class FirebaseMessagingClient {
         Response response = mClient.newCall(request).execute();
         return response.body().string();
     }
+
+
 }

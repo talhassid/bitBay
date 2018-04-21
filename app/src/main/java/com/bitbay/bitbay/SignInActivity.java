@@ -133,6 +133,7 @@ public class SignInActivity extends AppCompatActivity implements
         DatabaseReference user = mDatabaseRef.child(userId);
         user.child("email").setValue(email);
         user.child("name").setValue(name);
+        user.child("notificationToken").setValue(FirebaseInstanceId.getInstance().getToken());
     }
 
     private void signOut() {
