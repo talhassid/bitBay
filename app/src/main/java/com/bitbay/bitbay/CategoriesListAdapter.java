@@ -17,36 +17,33 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-/**
- * Created by roeis on 4/6/2018.
- */
 
 public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
 
     ArrayList<StoreItem> items;
     Context context;
-    int resource ;
-    GoogleSignInAccount myAccount = null ;
+    int resource;
+    GoogleSignInAccount myAccount = null;
     DatabaseReference mDatabaseRef;
     ImgHolder holder;
 
-
     public CategoriesListAdapter(Context context, int resource, ArrayList<StoreItem> items,
-                                 GoogleSignInAccount myAccount,DatabaseReference mDatabaseRef) {
-        super(context, resource,items);
+                                 GoogleSignInAccount myAccount, DatabaseReference mDatabaseRef) {
+        super(context, resource, items);
         this.items = items;
         this.context = context;
-        this.resource = resource ;
+        this.resource = resource;
         this.myAccount = myAccount;
         this.mDatabaseRef = mDatabaseRef;
     }
 
-    public void updateHolderSellerName(StoreItem item, String sellerName){
+    public void updateHolderSellerName(StoreItem item, String sellerName) {
         holder.SELLER_NAME.setText(sellerName);
         final String sellerKey = item.getSellerKey();
         holder.SELLER_NAME.setOnClickListener(new View.OnClickListener() {
@@ -62,11 +59,11 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-        if(convertView == null) {
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.getContext().getSystemService(
                     Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.category_items_list_view,parent,false);
+            convertView = layoutInflater.inflate(R.layout.category_items_list_view, parent, false);
 
             holder = new ImgHolder();
             holder.IMAGE = convertView.findViewById(R.id.imageViewItem);
@@ -76,8 +73,8 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
             holder.Button = convertView.findViewById(R.id.add_to_cart_button);
 
             convertView.setTag(holder);
-        }else {
-            holder = (ImgHolder)convertView.getTag();
+        } else {
+            holder = (ImgHolder) convertView.getTag();
         }
 
         final StoreItem item = getItem(position);
@@ -92,25 +89,50 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String sellerName = dataSnapshot.getValue(String.class);
                 updateHolderSellerName(item, sellerName);
-                if (sellerName == null){
-                    Log.i("seller name is null ",":(");
-                }
-                else{
-                    Log.i("seller name: ",sellerName);
+                if (sellerName == null) {
+                    Log.i("seller name is null ", ":(");
+                } else {
+                    Log.i("seller name: ", sellerName);
                 }
 
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(DatabaseError databaseError) {
+            }
         });
 
         holder.Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("info: ","ADD TO CART BUTTON PRESSED");
-                ApiFireBaseStore.addItem2Cart(mDatabaseRef,item,myAccount.getId());
-                Toast.makeText(getContext(), "Added to cart successfully", Toast.LENGTH_SHORT).show();
+                Log.i("info: ", "ADD TO CART BUTTON PRESSED");
+                ApiFireBaseStore.addItem2Cart(mDatabaseRef, item, myAccount.getId());
+
+                final FirebaseMessagingClient fcmClient = new FirebaseMessagingClient();
+
+                //String sellerToken =
+                // "cKRI28GDBxs:APA91bETAOZoZ9pFFuYToBz2nCiD5ryTlC_PTy7ARl641IuXQgZFKV9fPLC2ruf45Q5v4sDzWuZAkWzkdYRP9KI3HZsZPvGZyjmka7cE8AzNz7xgAmSryPU_Ee-jvmYw22pYfqZ7p_h2";
+
+                final DatabaseReference seller
+                        = FirebaseDatabase.getInstance().getReference().child("users").child(item
+                        .getSellerKey())
+                        .child("notificationToken");
+                seller.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String sellerToken = dataSnapshot.getValue(String.class);
+                        fcmClient.sendMessage(sellerToken, "bitBay", "Someone is watching your products.", "Not sure if this field is mandatory");
+                        Log.i("seller Token ", sellerToken);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+
+                Toast.makeText(getContext(), "Added to cart successfully", Toast.LENGTH_SHORT)
+                        .show();
 
             }
         });
@@ -120,8 +142,7 @@ public class CategoriesListAdapter extends ArrayAdapter<StoreItem> {
 
     }
 
-    static class ImgHolder
-    {
+    static class ImgHolder {
         ImageView IMAGE;
         TextView PRICE;
         TextView DESCRIPTION;

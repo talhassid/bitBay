@@ -76,6 +76,8 @@ public class LoggedInActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
     private  void profile() {
