@@ -91,7 +91,7 @@ public class ActivityFilteredCategories extends Activity {
                         Log.i("*inside search filter",mySearch);
                         if(description.contains(mySearch)) {
                             Log.i("**search word found*", mySearch);
-                            StoreItem item = new StoreItem(price, description, imagePath, userKey, categories);
+                            StoreItem item = new StoreItem(price, description, imagePath, userKey, categories,address);
                             item.setItemKey(itemKey);
                             (mItemsArrayList).add(item);
                         }
