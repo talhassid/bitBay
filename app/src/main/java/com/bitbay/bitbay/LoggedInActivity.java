@@ -76,6 +76,11 @@ public class LoggedInActivity extends AppCompatActivity {
             }
         });
 
+        // start bitcoin wallet service
+        BitcoinWalletService.setContext(getApplicationContext());
+        Intent bitcoinWalletServiceIntent = new Intent(this, BitcoinWalletService.class);
+        startService(bitcoinWalletServiceIntent);
+        Log.i("", "bitcoin service was started");
     }
 
     private  void profile() {
