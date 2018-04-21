@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_sendto_address"
+        android:id="@+id/tv_my_balance"
         android:textStyle="bold"
         android:layout_marginTop="20dp"
         android:textSize="15dp"
@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/address"
+        android:id="@+id/tv_product_price"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginTop="20dp"
@@ -39,14 +39,10 @@
         android:layout_gravity="center"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/tv_transaction_result"
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_gravity="center"
-        android:hint="" />
+        android:text="Pay"
+        android:onClick="onPay"/>
 
 </LinearLayout>

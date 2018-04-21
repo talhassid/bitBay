@@ -95,7 +95,8 @@ public class BitcoinValueActivity extends AppCompatActivity {
 
             JSONObject bpiObject = jsonObject.getJSONObject("bpi");
             JSONObject usdObject = bpiObject.getJSONObject("USD");
-            builder.append(usdObject.getString("rate")).append("$").append("\n");
+            String usdRate = usdObject.getString("rate");
+            builder.append(usdRate).append("$").append("\n");
 
             JSONObject gbpObject = bpiObject.getJSONObject("GBP");
             builder.append(gbpObject.getString("rate")).append("£").append("\n");
