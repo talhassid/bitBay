@@ -17,8 +17,12 @@ import android.widget.ListView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
@@ -34,7 +38,7 @@ public class wishListFragment extends Fragment {
     private ArrayList<StoreItem> mItemsArrayList = new ArrayList<>();
     int cartFullPrice;
     String src;
-
+    HashMap<String,String> items;
     public wishListFragment() {
 
         // Required empty public constructor
@@ -64,22 +68,26 @@ public class wishListFragment extends Fragment {
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                items = new HashMap<>();
                 cartFullPrice = 0;
-                for(int i = 0; i < mItemsArrayList.size(); i++){
+                getItemsAddress();
+                for(int i = 0; i < mItemsArrayList.size(); i++) {
                     String s_price = mItemsArrayList.get(i).getPrice();
                     int itemPrice = 0;
-                    try{
+                    try {
                         itemPrice = Integer.parseInt(s_price);
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         continue;
                     }
                     cartFullPrice = cartFullPrice + itemPrice;
                 }
+
                 Intent paymentIntent = new Intent(getActivity(), PaypalActivity.class);
                 paymentIntent.putExtra("price",cartFullPrice);
+                paymentIntent.putExtra("cart items",items);
                 paymentIntent.putExtra("gAccount",activity.getMyAccount());
                 startActivity(paymentIntent);
+
             }
         });
 
@@ -98,6 +106,7 @@ public class wishListFragment extends Fragment {
                 String watcherKey= String.valueOf(dataSnapshot.child("cartWatchers").child(userKey).getValue());
                 if(userKey.equals(watcherKey)) {
                     String price = String.valueOf(dataSnapshot.child("price").getValue());
+                    String address = String.valueOf(dataSnapshot.child("address").getValue());
                     String imagePath = String.valueOf(dataSnapshot.child("storagePath").getValue());
                     String description = String.valueOf(dataSnapshot.child("description").getValue());
                     String categories = (String) dataSnapshot.child("categories").getValue();
@@ -108,7 +117,7 @@ public class wishListFragment extends Fragment {
                     Log.i("**description**", description);
 
                     StoreItem item = new StoreItem(price,description,imagePath,
-                            activity.getMyAccount().getId(),categories);
+                            activity.getMyAccount().getId(),categories,address);
                     item.setItemKey(dataSnapshot.getKey());
 
                     if ("paypal".equals(src)) {
@@ -124,9 +133,7 @@ public class wishListFragment extends Fragment {
                         (mItemsArrayList).add(item);
                     }
 
-
-
-            }
+                }
                 userCartListAdapter.notifyDataSetChanged();
             }
 
@@ -180,5 +187,14 @@ public class wishListFragment extends Fragment {
 //        Remove all the items from cart - firebase and view
 //        Remove items from sellers list
 
+    }
+
+    public void getItemsAddress(){
+        for (int counter = 0; counter < mItemsArrayList.size(); counter++) {
+            StoreItem item = mItemsArrayList.get(counter);
+            final String itemAddress = item.getAddress();
+            final String itemPrice = item.getPrice();
+            items.put(itemAddress,itemPrice);
+        }
     }
 }

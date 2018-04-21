@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/bitBay.iml" filepath="$PROJECT_DIR$/bitBay.iml" />
-      <module fileurl="file://$PROJECT_DIR$\.idea\modules\bitBay.iml" filepath="$PROJECT_DIR$\.idea\modules\bitBay.iml" />
+      <module fileurl="file://C:\Users\talha\StudioProjects\bitBay\.idea\modules\bitBay.iml" filepath="C:\Users\talha\StudioProjects\bitBay\.idea\modules\bitBay.iml" />
     </modules>
   </component>
 </project>

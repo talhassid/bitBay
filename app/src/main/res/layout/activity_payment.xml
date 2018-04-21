@@ -15,47 +15,51 @@
         android:layout_gravity="center"
         android:textSize="20sp"
         android:textAlignment="center"/>
+
     <Button
         android:id="@+id/pay_button"
-        android:background="#708090"
-        android:layout_width="wrap_content"
+        android:layout_width="169dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:textSize="15sp"
+        android:background="#708090"
         android:onClick="pay"
+        android:text="pay with paypal"
         android:textColor="#fff"
-        android:text="pay with paypal"/>
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/bitcoinPayment"
+        android:layout_width="171dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#708090"
+        android:layout_marginTop="15dp"
+        android:onClick="moveToBitCoinPayment"
+        android:text="pay with BitCoin"
+        android:textColor="#fff"
+        android:textSize="15dp" />
+
+    <Button
+        android:id="@+id/bitcoinValue"
+        android:layout_width="177dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/round_button"
+        android:onClick="moveToBitCoinValue"
+        android:text="get BitCoin Value"
+        android:textColor="#fff"
+        android:textSize="15dp" />
+
     <TextView
         android:id="@+id/response"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:textSize="20sp"
+        android:layout_marginTop="100dp"
+        android:textSize="15dp"
         android:textAlignment="center"/>
 
-    <Button
-        android:id="@+id/bitcoinPayment"
-        android:background="#708090"
-        android:textColor="#fff"
-        android:textSize="15sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="pay with BitCoin"
-        android:onClick="moveToBitCoinPayment"
-        />
-    <Button
-        android:id="@+id/bitcoinValue"
-        android:textColor="#fff"
-        android:textSize="15sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:text="get BitCoin Value"
-        android:onClick="moveToBitCoinValue"
-        android:background="@drawable/round_button"
-        />
+
 </LinearLayout>

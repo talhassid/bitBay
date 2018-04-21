@@ -60,6 +60,7 @@ public class myOffersFragment extends Fragment {
                 String userKey= String.valueOf(dataSnapshot.child("userId").getValue());
                 if(userKey.equals(activity.getMyAccount().getId())) {
                     String price = String.valueOf(dataSnapshot.child("price").getValue());
+                    String address = String.valueOf(dataSnapshot.child("address").getValue());
                     String imagePath = String.valueOf(dataSnapshot.child("storagePath").getValue());
                     String description = String.valueOf(dataSnapshot.child("description").getValue());
                     String categories = (String) dataSnapshot.child("categories").getValue();
@@ -68,7 +69,7 @@ public class myOffersFragment extends Fragment {
                     Log.i("**imagePath**", imagePath);
                     Log.i("**description**", description);
 
-                    StoreItem item = new StoreItem(price,description,imagePath,userKey,categories);
+                    StoreItem item = new StoreItem(price,description,imagePath,userKey,categories,address);
                     item.setItemKey(itemKey);
 
                     (mItemsArrayList).add(item);

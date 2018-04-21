@@ -1,19 +1,26 @@
 package com.bitbay.bitbay;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.MoreExecutors;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
@@ -22,163 +29,218 @@ import org.bitcoinj.core.InsufficientMoneyException;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence;
+import org.bitcoinj.crypto.KeyCrypterException;
 import org.bitcoinj.kits.WalletAppKit;
-import org.bitcoinj.params.RegTestParams;
 import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.listeners.WalletCoinsReceivedEventListener;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor;
+
+import static com.google.android.gms.common.internal.zzbq.checkNotNull;
+
 
 public class BitcoinPaymentActivity extends AppCompatActivity {
 
-    public WalletAppKit kit;
-    private NetworkParameters params;
-    private Address forwardingAddress;
-    private String filePrefix;
-
-    final Handler handler = new Handler();
-    private String userKey;
-    private EditText mEdit;
-
     //HARDCODED
-    private double price = 0.000000000001;
-    private String recipient = "mkVm2g34Mq5Kqx7AWKoMe2ARzotWTM75ov";
-    public TextView mText;
+
+    String MY_RECIPIENT_TEXTUAL_PUBLIC_KEY;
+    final String LOG_TAG = "BitcoinActivity";
+
+    Address mForwardingAddress; // the address that the payment will be forwarded to
+    WalletAppKit mWalletAppKit; // a bundle for all of the wallet factors
+    NetworkParameters mNetworkParameters; // define what type of network we run on (test /
+    // production)
+    Address mMyWalletAddress; // This application saved on device wallet
+    String filePrefix = "forwarding-service-testnet";
+
+    TextView mSendToTextView;
+    TextView mAddressTextView;
+    TextView mTransactionResultTextView;
+    private ProgressBar spinner;
+    String address;
+    String price;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bitcoin_payment);
-        mText = (TextView) findViewById(R.id.statusBit);
-//        get price from prev activity
-//        Intent intent = getIntent();
-//        Bundle bundle = intent.getExtras();
-//        price = (int) bundle.get("price");
-        mEdit = (EditText) findViewById(R.id.userKey);
-        createForwardingAddress();
-        createNewWallet();
 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        address = (String) bundle.get("address");
+        price = (String) bundle.get("price");
+        MY_RECIPIENT_TEXTUAL_PUBLIC_KEY = address; //n3APWezT42i6bGB6NG3MQ9RTxTCtpFugqx
+
+        mSendToTextView = findViewById(R.id.tv_sendto_address);
+        mAddressTextView = findViewById(R.id.address);
+        mTransactionResultTextView = findViewById(R.id.tv_transaction_result);
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
+
+
+        mNetworkParameters = TestNet3Params.get();
+        mForwardingAddress = Address.fromBase58(mNetworkParameters,
+                MY_RECIPIENT_TEXTUAL_PUBLIC_KEY);
+        Log.i("BitcoinActivity", "Forwarding Address: " + mForwardingAddress);
+        Executors.newSingleThreadExecutor().execute(new CreateWalletAsyncTask());
     }
 
-    public void getKey(View view){
-        userKey = mEdit.getText().toString();
-        mEdit.setText("");
-    }
-
-    public void createForwardingAddress(){
-        String network = "testnet";
-        params = TestNet3Params.get();
-        filePrefix = "forwarding-service-testnet";
-        forwardingAddress = Address.fromBase58(params, recipient);
-        mText.setText("finish step: create forwarding address");
-    }
-
-    class AsyncWallet extends AsyncTask{
+    private class CreateWalletAsyncTask implements Runnable {
         @Override
-        protected Object doInBackground(Object[] objects) {
+        public void run() {
+            Log.i("BitcoinActivity", "Creating wallet " + mForwardingAddress);
             File file = new File(getApplicationContext().getFilesDir().getPath().toString());
-            kit = new WalletAppKit(params, file, filePrefix) {
+            WalletAppKit kit = new WalletAppKit(mNetworkParameters, file, filePrefix) {
+                // This is called in a background thread after startAndWait is called, as setting
+                // up various objects
+                // can do disk and network IO that may cause UI jank/stuttering in wallet apps if
+                // it were to be done
+                // on the main thread.
                 @Override
                 protected void onSetupCompleted() {
-                    if (wallet().getKeyChainGroupSize() < 1)
-                        wallet().importKey(new ECKey());
+                    Log.i("BitcoinActivity", "Creating wallet: setup complete");
+                    if (wallet().getKeyChainGroupSize() < 1) {
+                        ECKey eckey = new ECKey();
+                        wallet().importKey(eckey);
+                        Log.i("BitcoinActivity",
+                                "Creating wallet: Created a new ECKey: " + eckey);
+                    }
+
+                    // We want to know when we receive money.
+                    wallet().addCoinsReceivedEventListener(new WalletCoinsReceivedEventListener() {
+                        @Override
+                        public void onCoinsReceived(Wallet w, Transaction tx, Coin prevBalance,
+                                                    Coin newBalance) {
+                            // Runs in the dedicated "user thread" (see bitcoinj docs for more
+                            // info on this).
+                            //
+                            // The transaction "tx" can either be pending, or included into a
+                            // block (we didn't see the broadcast).
+                            Coin value = tx.getValueSentToMe(w);
+                            Log.i(LOG_TAG, "Received tx for " + value.toFriendlyString() + ": " +
+                                    tx);
+                            Log.i(LOG_TAG, "Transaction will be forwarded after it confirms.");
+                            // Wait until it's made it into the block chain (may run immediately
+                            // if it's already there).
+                            //
+                            // For this dummy app of course, we could just forward the
+                            // unconfirmed transaction. If it were
+                            // to be double spent, no harm done. Wallet
+                            // .allowSpendingUnconfirmedTransactions() would have to
+                            // be called in onSetupCompleted() above. But we don't do that here
+                            // to demonstrate the more common
+                            // case of waiting for a block.
+                            final Transaction finalTx = tx;
+                            Futures.addCallback(tx.getConfidence().getDepthFuture(1), new
+                                    FutureCallback<TransactionConfidence>() {
+                                @Override
+                                public void onSuccess(TransactionConfidence result) {
+                                    Log.i(LOG_TAG,"Confirmation received.");
+                                    forwardCoins(finalTx);
+                                }
+
+                                @Override
+                                public void onFailure(Throwable t) {
+                                    // This kind of future can't fail, just rethrow in case
+                                    // something weird happens.
+                                    throw new RuntimeException(t);
+                                }
+                            });
+                        }
+                    });
+
+
+                    mWalletAppKit = this;
+                    Log.i("BitcoinActivity", "Creating wallet: done! and will forward to:" +
+                            mForwardingAddress);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.i("BitcoinActivity", "send coins to:" + mWalletAppKit.wallet()
+                                    .currentReceiveAddress());
+                            mSendToTextView.setText("Please send coins to the following address: ");
+                            mAddressTextView.setText(mWalletAppKit.wallet().currentReceiveAddress().toString());
+                            spinner.setVisibility(View.VISIBLE);
+                        }
+                    });
                 }
-
-
             };
-//        if (params == RegTestParams.get()) {
-//            kit.connectToLocalHost();
-//        }
-            mText.setText("finish step: create wallet");
             // Download the block chain and wait until it's done.
             kit.startAsync();
-            kit.awaitRunning();
-            mText.setText("finish step: Download the block chain");
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object o) {
-            walletListeners();
         }
     }
-    public void createNewWallet() {
-        new AsyncWallet().execute();
-    }
 
-    void walletListeners() {
-        kit.wallet().addCoinsReceivedEventListener(new WalletCoinsReceivedEventListener() {
-            @Override
-            public void onCoinsReceived(Wallet w, Transaction tx, Coin prevBalance, Coin
-                    newBalance) {
-                // Runs in the dedicated "user thread".
-            }
-        });
-        kit.wallet().addCoinsReceivedEventListener(new WalletCoinsReceivedEventListener() {
-            @Override
-            public void onCoinsReceived(Wallet w, Transaction tx, Coin prevBalance, Coin
-                    newBalance) {
-                Coin value = tx.getValueSentToMe(w);
-                System.out.println("Received tx for " + value.toFriendlyString() + ": " + tx);
-                System.out.println("Transaction will be forwarded after it confirms.");
+    private void forwardCoins(Transaction tx) {
+        try {
+            // Now send the coins onwards.
+            SendRequest sendRequest = SendRequest.emptyWallet(mForwardingAddress);
+            final Wallet.SendResult sendResult = mWalletAppKit.wallet().sendCoins(sendRequest);
+            checkNotNull(sendResult);  // We should never try to send more coins than we have!
 
-                Futures.addCallback(tx.getConfidence().getDepthFuture(1), new
-                        FutureCallback<TransactionConfidence>() {
-                            @Override
-                            public void onSuccess(TransactionConfidence result) {
-                                forwardCoins(result);
-                            }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mTransactionResultTextView.setText("Sending ...");
+                }
+            });
 
-                            @Override
-                            public void onFailure(Throwable t) {
-                            }
-                        });
-            }
-        });
-
-    }
-
-    public void forwardCoins(TransactionConfidence tx) {
-
-    }
-
-    /***
-     * Then we just invoke a method we define ourselves called forwardCoins when the transaction
-     * that sends us money confirms.
-     * @param tx
-     */
-    public void sendCoins(Transaction tx) throws InsufficientMoneyException {
-        Coin value = tx.getValueSentToMe(kit.wallet());
-        System.out.println("Forwarding " + value.toFriendlyString() + " BTC");
-        final Coin amountToSend = value.subtract(Transaction.REFERENCE_DEFAULT_MIN_TX_FEE);
-        final Wallet.SendResult sendResult = kit.wallet().sendCoins(kit.peerGroup(),
-                forwardingAddress, amountToSend);
-        System.out.println("Sending ...");
-
-        Runnable run = new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Sent coins onwards! Transaction hash is " + sendResult.tx
-                        .getHashAsString());
-            }
-        } ;
-        sendResult.broadcastComplete.addListener(run, Executors.newSingleThreadExecutor());
-    }
-
-
-    public Transaction createTransaction(Address address, Coin value) throws
-            InsufficientMoneyException {
-        SendRequest req = SendRequest.to(address, value);
-        req.feePerKb = Coin.parseCoin("0.0005");
-        Wallet.SendResult result = kit.wallet().sendCoins(kit.peerGroup(), req);
-        Transaction createdTx = result.tx;
-        return createdTx;
+            // Register a callback that is invoked when the transaction has propagated across the
+            // network.
+            // This shows a second style of registering ListenableFuture callbacks, it works when
+            // you don't
+            // need access to the object the future returns.
+            sendResult.broadcastComplete.addListener(new Runnable() {
+                @Override
+                public void run() {
+                    // The wallet has changed now, it'll get auto saved shortly or when the app
+                    // shuts down.
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            spinner.setVisibility(View.GONE);
+                            mTransactionResultTextView.setText(
+                                    "Sent coins onwards! \nTransaction hash is " +
+                                            sendResult.tx.getHashAsString());
+                        }
+                    });
+                }
+            }, MoreExecutors.sameThreadExecutor()); // directExecuter ??
+        } catch (KeyCrypterException | InsufficientMoneyException e) {
+            // We don't use encrypted wallets in this example - can never happen.
+            throw new RuntimeException(e);
+        }
     }
 }
 
 
-//https://www.javaworld.com/article/2078482/java-web-development/bitcoin-for-beginners--part-3--the-bitcoinj-api.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -29,7 +29,9 @@
         <activity android:name=".PaypalActivity" />
         <activity android:name=".SellerActivity" />
         <activity android:name=".BitcoinValueActivity" />
-        <activity android:name=".BitcoinPaymentActivity" />
+        <activity android:name=".BitcoinPaymentActivity"/>
+        <activity android:name=".BitcoinCartActivity">
+        </activity>
         <activity android:name=".RateActivity"
             android:theme="@style/AppTheme.CustomTheme"/>
 
